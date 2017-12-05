@@ -111,17 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named NougDug
+# Target rules for targets named sfml
 
 # Build rule for target.
-NougDug: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NougDug
-.PHONY : NougDug
+sfml: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfml
+.PHONY : sfml
 
 # fast build rule for target.
-NougDug/fast:
-	$(MAKE) -f CMakeFiles/NougDug.dir/build.make CMakeFiles/NougDug.dir/build
-.PHONY : NougDug/fast
+sfml/fast:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/build
+.PHONY : sfml/fast
+
+Game.o: Game.cpp.o
+
+.PHONY : Game.o
+
+# target to build an object file
+Game.cpp.o:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/Game.cpp.o
+.PHONY : Game.cpp.o
+
+Game.i: Game.cpp.i
+
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/Game.cpp.s
+.PHONY : Game.cpp.s
+
+PlayState.o: PlayState.cpp.o
+
+.PHONY : PlayState.o
+
+# target to build an object file
+PlayState.cpp.o:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/PlayState.cpp.o
+.PHONY : PlayState.cpp.o
+
+PlayState.i: PlayState.cpp.i
+
+.PHONY : PlayState.i
+
+# target to preprocess a source file
+PlayState.cpp.i:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/PlayState.cpp.i
+.PHONY : PlayState.cpp.i
+
+PlayState.s: PlayState.cpp.s
+
+.PHONY : PlayState.s
+
+# target to generate assembly for a file
+PlayState.cpp.s:
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/PlayState.cpp.s
+.PHONY : PlayState.cpp.s
 
 main.o: main.cc.o
 
@@ -129,7 +183,7 @@ main.o: main.cc.o
 
 # target to build an object file
 main.cc.o:
-	$(MAKE) -f CMakeFiles/NougDug.dir/build.make CMakeFiles/NougDug.dir/main.cc.o
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/main.cc.o
 .PHONY : main.cc.o
 
 main.i: main.cc.i
@@ -138,7 +192,7 @@ main.i: main.cc.i
 
 # target to preprocess a source file
 main.cc.i:
-	$(MAKE) -f CMakeFiles/NougDug.dir/build.make CMakeFiles/NougDug.dir/main.cc.i
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/main.cc.i
 .PHONY : main.cc.i
 
 main.s: main.cc.s
@@ -147,7 +201,7 @@ main.s: main.cc.s
 
 # target to generate assembly for a file
 main.cc.s:
-	$(MAKE) -f CMakeFiles/NougDug.dir/build.make CMakeFiles/NougDug.dir/main.cc.s
+	$(MAKE) -f CMakeFiles/sfml.dir/build.make CMakeFiles/sfml.dir/main.cc.s
 .PHONY : main.cc.s
 
 # Help Target
@@ -158,7 +212,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... NougDug"
+	@echo "... sfml"
+	@echo "... Game.o"
+	@echo "... Game.i"
+	@echo "... Game.s"
+	@echo "... PlayState.o"
+	@echo "... PlayState.i"
+	@echo "... PlayState.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

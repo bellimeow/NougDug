@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/NougDug.dir/main.cc.o"
+  "CMakeFiles/NougDug.dir/Game.cpp.o"
   "NougDug.pdb"
   "NougDug"
 )
