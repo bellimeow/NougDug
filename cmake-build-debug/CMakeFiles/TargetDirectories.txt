@@ -1,0 +1,3 @@
+/home/seblu114/TDP005/NougDug/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/seblu114/TDP005/NougDug/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/seblu114/TDP005/NougDug/cmake-build-debug/CMakeFiles/NougDug.dir

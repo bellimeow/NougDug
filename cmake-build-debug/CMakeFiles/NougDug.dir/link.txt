@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/NougDug.dir/main.cc.o  -o NougDug 
