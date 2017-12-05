@@ -1,4 +1,4 @@
-# Install script for directory: /home/seblu114/TDP005/NougDug
+# Install script for directory: /home/isade842/Documents/TDP005/NougDug
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/seblu114/TDP005/NougDug/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/isade842/Documents/TDP005/NougDug/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
