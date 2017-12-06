@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++14 -g   CMakeFiles/NougDug.dir/main.cc.o CMakeFiles/NougDug.dir/Game.cpp.o  -o NougDug 
