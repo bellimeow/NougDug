@@ -4,10 +4,20 @@
 
 #include "PlayState.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 
-PlayState::PlayState(Game* game) : game(game)
+std::string AbstractGameState::directory;
+std::string AbstractGameState::level;
+
+PlayState::PlayState(Game* game)
+        : game(game)
 {
-
+    directory = "/home/seblu114/TDP005/NougDug/";
+    level = "level1.txt";
+    path = directory + level;
+    //load_game_board (")
+    // board = new Board
 }
 
 int PlayState::get_player_lives()
@@ -28,6 +38,24 @@ void PlayState::set_high_score()
 void PlayState::intro_sequence()
 {
 
+}
+
+std::ifstream PlayState::load_game_board(std::string filename) {
+    std::ifstream level_data;
+    level_data.open(filename, std::ifstream::in);
+
+    if ( level_data.fail() )
+    {
+        std::cerr << "Couldn't open file!\n";
+    }
+    else
+    {
+
+        level_data >> board_height >> board_width;
+        std::cout << board_height << " " << board_width << "\n";
+
+        return level_data;
+    }
 }
 
 void PlayState::check_state(){
@@ -71,7 +99,9 @@ void PlayState::update()
 
 void PlayState::initialize() {
 
-    board = new Board("/home/seblu114/TDP005/NougDug/test.txt");
+    std::ifstream game_board{load_game_board (path)};
+    std::ifstream* level_ptr{&game_board};
+    board = new Board(level_ptr, board_width, board_height);
     std::cout << "Init" << "\n";
 }
 
@@ -82,3 +112,5 @@ void PlayState::play_again() {
 int PlayState::get_high_score() {
     return 0;
 }
+
+

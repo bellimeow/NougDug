@@ -1,6 +1,7 @@
 #ifndef ABSTRACTSTATE_H
 #define ABSTRACTSTATE_H
 
+#include <string>
 #include "Game.h"
 
 class Game;
@@ -11,6 +12,8 @@ class AbstractGameState
     protected:
         int high_score{};
         Game* game{nullptr};
+        static std::string directory;
+        static std::string level;
 
     public:
         virtual void check_state() = 0;
