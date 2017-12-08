@@ -9,6 +9,8 @@
 #include <SFML/System/Clock.hpp>
 #include "PlayState.h"
 #include "Sprite.h"
+#include "Player.h"
+#include "Character.h"
 
 class PlayState;
 
@@ -27,7 +29,7 @@ class Board
         int rock_count{};
         std::vector<std::vector<Sprite*>> blocks;
         std::vector<std::vector<Sprite*>> characters;
-        Player* player;
+        Sprite* player;
         PlayState* update_playstate{};
         sf::Clock time{};
         std::map<int, int> depth_levels{   {1, 0},

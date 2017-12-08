@@ -12,6 +12,7 @@ class AbstractGameState
     protected:
         int high_score{};
         Game* game{nullptr};
+        sf::RenderWindow* window_ptr{nullptr};
         static std::string directory;
         static std::string level;
 

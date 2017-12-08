@@ -22,12 +22,13 @@ class Sprite
         };
 
     public:
+        Sprite();
         Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
 
-        void draw();
-        sf::Texture get_sprite_sheet( std::string path);
-
-        virtual void animate();
+        virtual void draw();
+        virtual sf::Texture get_sprite_sheet( std::string path);
+        virtual void animate() = 0;
+        virtual void set_position(int row, int column) = 0;
 };
 
 #endif

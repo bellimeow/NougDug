@@ -2,6 +2,7 @@
 // Created by isade842 on 12/8/17.
 //
 
+#include <iostream>
 #include "Player.h"
 
 const int Player::get_lives() const
@@ -27,3 +28,14 @@ int Player::get_current_x() const {
 int Player::get_current_y() const {
     return current_y;
 }
+
+Player::Player()
+    : Character(3, 1)
+{}
+
+void Player::animate()
+{
+    std::cout << "Woo\n";
+}
+
+

@@ -3,20 +3,16 @@
 //
 
 #include "Game.h"
-#include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 #include "PlayState.h"
-
+#include "MenuState.h"
 
 void Game::run()
 {
-    unsigned int display_size_multiplier{3};
+    window.create(sf::VideoMode(256*display_size_multiplier, 288*display_size_multiplier), "Noug Dug");
 
-    sf::RenderWindow window(sf::VideoMode(256*display_size_multiplier, 288*display_size_multiplier), "Noug Dug");
-
-
-    change_state(states[0], current_state);
+    change_state(current_state);
 
     while(window.isOpen())
     {
@@ -30,7 +26,7 @@ void Game::run()
             }
             if (action.type == sf::Event::KeyPressed)
             {
-                states[0]->player_input();
+                states[current_state]->player_input();
             }
         }
 
@@ -38,16 +34,7 @@ void Game::run()
 
         // draw everything here...
         // window.draw(...);
-        sf::Texture texture;
-        if (!texture.loadFromFile("/home/seblu114/Downloads/noug.png"))
-        {
-            std::cerr << "Rawr!\n";
-        }
-        sf::Texture* tp = &texture;
-        sf::RectangleShape title{sf::Vector2f(768, 360)};
-        title.setTexture(tp);
 
-        window.draw(title);
         update();
 
 
@@ -58,21 +45,23 @@ void Game::run()
 
 Game::Game()
 {
-    //MenuState* menu_state{new MenuState};
-    PlayState* play_state{new PlayState(this)};
+    sf::RenderWindow* window_ptr{&window};
+
+    MenuState* menu_state{new MenuState(this, window_ptr)};
+    PlayState* play_state{new PlayState(this, window_ptr)};
     //EndState* end_state{new EndState};
 
-    //push_state(menu_state);
+    push_state(menu_state);
     push_state(play_state);
     //push_state(end_state);
 
     std::cout << "Game is being created!" << std::endl;
 }
 
-void Game::change_state(AbstractGameState* state, int state_index)
+void Game::change_state(int state_index)
 {
-    state->initialize();
     current_state = state_index;
+    states[current_state]->initialize();
 }
 
 void Game::push_state(AbstractGameState* state)

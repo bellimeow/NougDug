@@ -22,7 +22,7 @@ sf::Texture Sprite::get_sprite_sheet(std::string path)
 
 }
 
-void Sprite::animate()
+Sprite::Sprite()
 {
 
 }

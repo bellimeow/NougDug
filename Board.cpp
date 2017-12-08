@@ -234,6 +234,6 @@ void Board::player_action( std::string action )
     {
         // save check_collision_simple();
 
-        characters.[][];
+       // characters.[][];
     }
 }
