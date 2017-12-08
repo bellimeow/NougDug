@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <fstream>
+#include <map>
 #include <SFML/System/Clock.hpp>
 #include "PlayState.h"
 #include "Sprite.h"
@@ -17,21 +18,16 @@ struct block_test
     int width{};
 };
 
-struct enemy_test
-{
-    int height{};
-    int width{};
-};
-
 class Board
 {
     private:
-        int const BACKGROUND_DEPTH{3};
+        int const BACKGROUND_DEPTH;
 
         int enemy_count{};
         int rock_count{};
-        std::vector<std::vector<block_test>> blocks;
-        std::vector<std::vector<enemy_test>> characters;
+        std::vector<std::vector<Sprite*>> blocks;
+        std::vector<std::vector<Sprite*>> characters;
+        Player* player;
         PlayState* update_playstate{};
         sf::Clock time{};
         std::map<int, int> depth_levels{   {1, 0},
@@ -49,24 +45,24 @@ class Board
         bool collision_with_enemy();
         bool immovable_object();
         int calculate_score();
-        void insert_objects(std::vector object_vector, std::ifstream* ifs, std::string vector_type);
-        void insert_characters(std::vector object_vector, std::ifstream* ifs);
-        void set_board_size(std::vector& object_vector, int width, int height);
+        void insert_objects(std::ifstream* ifs);
+        void set_board_size(std::vector<std::vector<Sprite*>>& object_vector, const unsigned int width, const unsigned int height);
 
     public:
 
-        Board(std::ifstream*, int width, int height);
+        Board(std::ifstream*, int width, int height, PlayState* ps);
 
-        std::unordered_map<char, void (*)(int)> create_block_function_map();
-        std::unordered_map<char, void (*)(void)> create_character_function_map();
+        std::unordered_map<char, Sprite* (*)(int)> create_block_function_map();
+        std::unordered_map<char, Sprite* (*)(void)> create_character_function_map();
+        void player_action(std::string);
         void set_depth_levels();
         int check_depth_level (int const);
-        Sprite* create_dirt(int);
-        Sprite* create_tunnel(int);
-        Sprite* create_rock(int);
-        //Sprite* create_root(int);
-        //Sprite* create_extra_points(int);
-        Sprite* create_background(int);
+        static Sprite* create_dirt(int);
+        static Sprite* create_tunnel(int);
+        static Sprite* create_rock(int);
+        //static Sprite* create_root(int);
+        //static Sprite* create_extra_points(int);
+        static Sprite* create_background(int);
 };
 
 #endif

@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 #include "PlayState.h"
@@ -13,15 +13,13 @@ void Game::run()
 {
     unsigned int display_size_multiplier{3};
 
-    sf::Window window(sf::VideoMode(256*display_size_multiplier, 288*display_size_multiplier), "Noug Dug");
+    sf::RenderWindow window(sf::VideoMode(256*display_size_multiplier, 288*display_size_multiplier), "Noug Dug");
 
 
     change_state(states[0], current_state);
 
     while(window.isOpen())
     {
-        update();
-
         sf::Event action;
 
         while(window.pollEvent(action))
@@ -30,7 +28,31 @@ void Game::run()
             {
                 window.close();
             }
+            if (action.type == sf::Event::KeyPressed)
+            {
+                states[0]->player_input();
+            }
         }
+
+        window.clear(sf::Color::Black);
+
+        // draw everything here...
+        // window.draw(...);
+        sf::Texture texture;
+        if (!texture.loadFromFile("/home/seblu114/Downloads/noug.png"))
+        {
+            std::cerr << "Rawr!\n";
+        }
+        sf::Texture* tp = &texture;
+        sf::RectangleShape title{sf::Vector2f(768, 360)};
+        title.setTexture(tp);
+
+        window.draw(title);
+        update();
+
+
+        // end the current frame
+        window.display();
     }
 }
 
