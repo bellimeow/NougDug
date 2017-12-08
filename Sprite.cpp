@@ -12,10 +12,11 @@ Sprite::Sprite()
 
 }
 
-void Sprite::draw()
+sf::Sprite Sprite::draw()
 {
     sf::Sprite sprite;
     sprite.setTexture(*sprite_sheets["player"]);
+    return sprite;
 }
 
 sf::Texture Sprite::get_sprite_sheet(std::string path)

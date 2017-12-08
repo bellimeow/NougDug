@@ -18,6 +18,10 @@ PlayState::PlayState(Game* game)
     path = directory + level;
     //load_game_board (")
     // board = new Board
+
+    Sprite test;
+    test.load_sprite_sheets();
+    window_test.draw();
 }
 
 int PlayState::get_player_lives()
