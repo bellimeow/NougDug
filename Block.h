@@ -6,13 +6,13 @@
 class Block : Sprite
 {
 
-protected:
-    int width;
-    int height;
-    int depth;
+    protected:
+        int width;
+        int height;
+        int depth;
 
-public:
-    void erase_block();
+    public:
+        void erase_block();
 
 };
 

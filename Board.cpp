@@ -6,24 +6,26 @@
 #include <algorithm>
 #include <unordered_map>
 #include <map>
+#include <string>
 #include "Board.h"
 #include "Dirt.h"
 
-typedef void (*BlockFunction)(int);
+typedef Sprite* (*BlockFunction)(int);
 typedef std::unordered_map<char, BlockFunction> BlockFunctionMap;
 
-typedef void (*CharacterFunction)(void);
+typedef Sprite* (*CharacterFunction)(void);
 typedef std::unordered_map<char, CharacterFunction> CharacterFunctionMap;
 
-Board::Board(std::ifstream* game_board, const int width, const int height)
+Board::Board(std::ifstream* game_board, const int width, const int height, PlayState* ps)
+    : BACKGROUND_DEPTH{3}, update_playstate{ps}
 {
     set_board_size(blocks, width, height);
     set_board_size(characters, width, height);
 
     set_depth_levels();
 
-    insert_objects(blocks, game_board, "Blocks");
-    insert_characters(characters, game_board);
+    insert_objects(game_board);
+    //insert_objects(characters, game_board, "Characters");
 }
 
 void Board::check_collision() {
@@ -74,9 +76,6 @@ BlockFunctionMap Board::create_block_function_map()
     func.emplace('D', &create_dirt);
     func.emplace('T', &create_tunnel);
     func.emplace('R', &create_rock);
-    func.emplace('@', &create_tunnel);
-    func.emplace('=', &create_tunnel);
-    func.emplace('#', &create_tunnel);
     //func.emplace('&', &create_root);
     //func.emplace('X', &create_extra_points);
     func.emplace('B', &create_background);
@@ -94,47 +93,47 @@ CharacterFunctionMap Board::create_character_function_map()
 {
     //HUr kommer specifik sprite ritas ut?
     CharacterFunctionMap func;
-    func.emplace('@', &create_player);
+   /* func.emplace('@', &create_player);
     func.emplace('=', &create_demodog);
-    func.emplace('#', &create_demogorgon);
+    func.emplace('#', &create_demogorgon);*/
 
     return func;
 }
 
-void Board::insert_objects( std::vector object_vector, std::ifstream* ifs, std::string vector_type )
-{
-    std::unordered_map functions;
+void Board::insert_objects( std::ifstream* ifs)
 
-    if ( vector_type == "Blocks" )
-    {
-        functions = create_block_function_map();
-    }
-    else if ( vector_type == "Characters" )
-    {
-        functions = create_character_function_map();
-    }
+{
+    BlockFunctionMap block_map{create_block_function_map()};
+    CharacterFunctionMap character_map{create_character_function_map()};
 
     char obj_char;
 
     int depth_level {1};
 
-    for (int row = 0; row < object_vector.size(); ++row)
+    for (int row = 0; row < blocks.size(); ++row)
     {
         depth_level = check_depth_level(row);
 
-        for (int column = 0; column < object_vector[row].size() ; ++column)
+        for (int column = 0; column < blocks[row].size() ; ++column)
         {
             while( ifs->get(obj_char) ) {
 
-                if (functions[obj_char] && vector_type == "Blocks")
+                if (block_map[obj_char])
                 {
-                    BlockFunction function = functions[obj_char];
-                    object_vector[row][column] = (*function)(depth_level);
+                    BlockFunction function = block_map[obj_char];
+                    blocks[row][column] = (*function)(depth_level);
                 }
-                else if (functions[obj_char] && vector_type == "Character")
+                else if (character_map[obj_char])
                 {
-                    CharacterFunction function = functions[obj_char];
-                    object_vector[row][column] = (*function)();
+                    CharacterFunction function = character_map[obj_char];
+                    characters[row][column] = (*function)();
+                    blocks[row][column] = create_tunnel(depth_level);
+                    characters[row][column]->set_position(row, column);
+
+                    if (obj_char == '@')
+                    {
+                       player = characters[row][column];
+                    }
                 }
                 else if ( obj_char != '|' && obj_char != '\n' )
                 {
@@ -145,15 +144,17 @@ void Board::insert_objects( std::vector object_vector, std::ifstream* ifs, std::
     }
 }
 
-void Board::set_board_size(std::vector &object_vector, int width, int height)
+void Board::set_board_size(std::vector<std::vector<Sprite*>> &object_vector, const unsigned int width, const unsigned int height)
 {
     object_vector.resize(height);
-    std::for_each(object_vector.begin(), object_vector.end(), object_vector.resize(width));
+    for (auto row = object_vector.begin(); row != object_vector.end(); ++row) {
+        (*row).resize(width);
+    }
 }
 
 void Board::set_depth_levels()
 {
-    int height {update_playstate->board_height};
+    unsigned int height {update_playstate->board_height};
 
     int board_dirt_size {height-BACKGROUND_DEPTH};
 
@@ -199,17 +200,17 @@ int Board::check_depth_level(int const row)
 
 Sprite* Board::create_dirt(int depth)
 {
-    return new Dirt(depth);
+    //return new Dirt(depth);
 }
 
 Sprite* Board::create_tunnel(int depth)
 {
-    return new Tunnel(depth);
+    //return new Tunnel(depth);
 }
 
 Sprite* Board::create_rock(int depth)
 {
-    return new Rock(depth);
+    //return new Rock(depth);
 }
 
 /*Sprite* Board::create_root(int depth)
@@ -224,5 +225,15 @@ Sprite* Board::create_rock(int depth)
 
 Sprite* Board::create_background(int depth)
 {
-    return new Block(depth);
+    //return new Block(depth);
+}
+
+void Board::player_action( std::string action )
+{
+    if (action == "right")
+    {
+        // save check_collision_simple();
+
+        characters.[][];
+    }
 }

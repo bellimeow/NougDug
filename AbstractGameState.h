@@ -22,6 +22,7 @@ class AbstractGameState
         virtual void initialize() = 0;
         virtual void play_again() = 0;
         virtual int get_high_score() = 0;
+        virtual void player_input() = 0;
 };
 
 #endif

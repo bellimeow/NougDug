@@ -4,8 +4,8 @@
 
 #include "PlayState.h"
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <SFML/Window/Keyboard.hpp>
+
 
 std::string AbstractGameState::directory;
 std::string AbstractGameState::level;
@@ -27,7 +27,30 @@ int PlayState::get_player_lives()
 
 void PlayState::player_input()
 {
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        board->player_action("up");
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        board->player_action("down");
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        board->player_action("left");
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        board->player_action("right");
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        board->player_action("shoot");
+    }
+    /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+    {
+        /board->player_action("place");
+    }*/
 }
 
 void PlayState::set_high_score()
@@ -78,7 +101,7 @@ bool PlayState::won()
 
 bool PlayState::lose()
 {
-    return player_lives == 0;
+    return current_player_lives == 0;
 }
 
 void PlayState::change_state()
@@ -101,7 +124,8 @@ void PlayState::initialize() {
 
     std::ifstream game_board{load_game_board (path)};
     std::ifstream* level_ptr{&game_board};
-    board = new Board(level_ptr, board_width, board_height);
+    PlayState* p{this};
+    board = new Board(level_ptr, board_width, board_height, p);
     std::cout << "Init" << "\n";
 }
 
