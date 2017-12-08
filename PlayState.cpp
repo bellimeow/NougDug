@@ -4,14 +4,12 @@
 
 #include "PlayState.h"
 #include <iostream>
-#include <SFML/Window/Keyboard.hpp>
-
 
 std::string AbstractGameState::directory;
 std::string AbstractGameState::level;
 
-PlayState::PlayState(Game* game)
-        : game(game)
+PlayState::PlayState( Game* game, sf::RenderWindow* window_ptr )
+        : game{game}, window_ptr{window_ptr}
 {
     directory = "/home/seblu114/TDP005/NougDug/";
     level = "level1.txt";
@@ -34,22 +32,27 @@ void PlayState::player_input()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         board->player_action("up");
+        std::cout << "Up!\n";
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         board->player_action("down");
+        std::cout << "Down!\n";
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         board->player_action("left");
+        std::cout << "Left!\n";
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         board->player_action("right");
+        std::cout << "Right!\n";
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         board->player_action("shoot");
+        std::cout << "Shoot!\n";
     }
     /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
     {
@@ -140,5 +143,6 @@ void PlayState::play_again() {
 int PlayState::get_high_score() {
     return 0;
 }
+
 
 

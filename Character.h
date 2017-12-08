@@ -1,19 +1,18 @@
-#ifndef PLAYSTATE_H
-#define PLAYSTATE_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
 #include <string>
 #include <vector>
 #include <fstream>
-#include "AbstractGameState.h"
-#include "Board.h"
+#include "Sprite.h"
 
 class Character : Sprite
 {
 protected:
     struct position;
 
-    int lives{};
-    double speed{};
+    const int lives{};
+    const int step{};
 
     struct position
     {
@@ -22,7 +21,12 @@ protected:
     };
 
 public:
-    virtual void move();
+        Character( int lives, int step );
+
+        virtual void move() = 0;
 };
+
+
+
 
 #endif

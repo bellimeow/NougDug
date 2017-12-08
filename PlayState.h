@@ -14,6 +14,7 @@ class PlayState : public AbstractGameState
     private:
         int high_score{};
         Game* game;
+        sf::RenderWindow* window_ptr;
         std::vector<AbstractGameState*> states{};
         Board* board;
 
@@ -25,9 +26,9 @@ class PlayState : public AbstractGameState
         unsigned int board_width{};
         unsigned int board_height{};
 
-        PlayState(Game* game);
+        PlayState(Game* game, sf::RenderWindow* window_ptr);
 
-        void player_input() ov;
+        void player_input() ;
         void intro_sequence();
         void set_high_score();
         std::ifstream load_game_board( std::string );
@@ -38,11 +39,11 @@ class PlayState : public AbstractGameState
         int get_player_lives();
 
 
-        void draw() override;
-        void update() override;
-        void initialize() override;
-        void play_again() override;
-        int get_high_score() override;
+        void draw();
+        void update() ;
+        void initialize() ;
+        void play_again() ;
+        int get_high_score();
 };
 
 #endif

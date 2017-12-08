@@ -3,8 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "AbstractGameState.h"
-#include "PlayState.h"
+#include <SFML/Graphics.hpp>
 
 /*
  * 1 : PlayState
@@ -19,13 +18,15 @@ class Game
 {
     private:
         std::vector<AbstractGameState*> states;
+        unsigned int display_size_multiplier{3};
 
     public:
         int current_state{};
         bool win{false};
+        sf::RenderWindow window;
 
         Game();
-        void change_state(AbstractGameState* state, int state_index);
+        void change_state(int state_index);
         void push_state(AbstractGameState* state);
         void run();
         void update();
