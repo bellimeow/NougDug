@@ -44,4 +44,5 @@ class PlayState : public AbstractGameState
         void play_again() override;
         int get_high_score() override;
 };
+
 #endif

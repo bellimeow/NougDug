@@ -1,13 +1,28 @@
+#ifndef PLAYSTATE_H
+#define PLAYSTATE_H
 
+#include <string>
+#include <vector>
+#include <fstream>
+#include "AbstractGameState.h"
+#include "Board.h"
 
-class Character
+class Character : Sprite
 {
 protected:
-    double position_x{};
-    double position_y{};
+    struct position;
+
     int lives{};
     double speed{};
 
+    struct position
+    {
+        double x{};
+        double y{};
+    };
+
 public:
-    virtual move();
+    virtual void move();
 };
+
+#endif

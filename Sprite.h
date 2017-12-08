@@ -22,7 +22,7 @@ class Sprite
         };
 
     public:
-        Sprite(const std::string &sprite_sheet_path);
+        Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
 
         void draw();
         sf::Texture get_sprite_sheet( std::string path);
