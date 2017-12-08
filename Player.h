@@ -1,0 +1,33 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <string>
+#include <vector>
+#include <fstream>
+#include "Character.h"
+
+class Player : Character
+{
+private:
+    const int lives{3};
+    const int step{1};
+
+    int current_x;
+    int current_y;
+
+public:
+    bool can_shoot{true};
+    bool invulnerable{false};
+
+    void feed_nougat();
+    void animate();
+
+    const int get_lives() const;
+    const int get_step() const;
+    int get_current_x() const;
+    int get_current_y() const;
+
+    void set_position(int row, int column);
+};
+
+#endif

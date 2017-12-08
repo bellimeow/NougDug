@@ -3,30 +3,46 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 #include "AbstractGameState.h"
+#include "Board.h"
 
+class Board;
 
-class PlayState : AbstractGameState
+class PlayState : public AbstractGameState
 {
 private:
     int high_score{};
     Game* game;
-    std::vector<AbstractGameState*> states{PlayState*};
-    //Board board;
+    std::vector<AbstractGameState*> states{};
+    Board* board;
+
+    std::string path;
+
 
 public:
     int player_lives{};
+    unsigned int board_width{};
+    unsigned int board_height{};
 
-    PlayState(Game *game);
+    PlayState(Game* game);
 
     void player_input();
     void intro_sequence();
+    void set_high_score();
+    std::ifstream load_game_board( std::string );
     void check_state();
     void change_state();
     bool won();
     bool lose();
-
     int get_player_lives();
-    void set_high_score();
+
+
+    void draw() override;
+    void update() override;
+    void initialize() override;
+    void play_again() override;
+    int get_high_score() override;
 };
+
 #endif
