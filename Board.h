@@ -29,6 +29,7 @@ class Board
         int rock_count{};
         std::vector<std::vector<Sprite*>> blocks;
         std::vector<std::vector<Sprite*>> characters;
+        sf::RenderWindow* window_ptr;
         Sprite* player;
         PlayState* update_playstate{};
         sf::Clock time{};
@@ -49,14 +50,15 @@ class Board
         int calculate_score();
         void insert_objects(std::ifstream* ifs);
         void set_board_size(std::vector<std::vector<Sprite*>>& object_vector, const unsigned int width, const unsigned int height);
-
     public:
 
-        Board(std::ifstream*, int width, int height, PlayState* ps);
+        Board(std::ifstream* game_board, int width, int height, PlayState* ps, sf::RenderWindow* window);
 
         std::unordered_map<char, Sprite* (*)(int)> create_block_function_map();
+
         std::unordered_map<char, Sprite* (*)(void)> create_character_function_map();
         void player_action(std::string);
+        void draw();
         void set_depth_levels();
         int check_depth_level (int const);
         static Sprite* create_dirt(int);

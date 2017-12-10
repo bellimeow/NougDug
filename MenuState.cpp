@@ -28,17 +28,17 @@ void MenuState::update()
 void MenuState::draw()
 {
     sf::Texture texture;
-    if (!texture.loadFromFile("/home/seblu114/Downloads/noug.png"))
+    if (!texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/noug.png"))
     {
         std::cerr << "Rawr!\n";
     }
     sf::Texture* tp = &texture;
-    sf::RectangleShape title{sf::Vector2f(768, 360)};
+    sf::RectangleShape title{sf::Vector2f(288*Game::DISPLAY_SIZE_MULTIPLIER, (288*Game::DISPLAY_SIZE_MULTIPLIER)/2.5)};
     title.setTexture(tp);
 
     sf::Texture start_texture;
     sf::RectangleShape start{sf::Vector2f(200, 150)};
-    if (!start_texture.loadFromFile("/home/seblu114/Downloads/Start.png"))
+    if (!start_texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/Start.png"))
     {
         std::cerr << "Nope!";
     }

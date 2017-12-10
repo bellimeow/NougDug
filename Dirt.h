@@ -3,17 +3,18 @@
 
 #include "Block.h"
 
-class Dirt : Block
+class Dirt : public Block
 {
 
-private:
+    private:
+        sf::Texture texture;
 
+    public:
+        std::string me{"Dirt"};
 
-public:
-
-    Dirt(int depth);
-        void draw(sf::RenderWindow*);
-    void animate() override;
+        Dirt(int depth);
+        void draw(sf::RenderWindow* window, int row, int column, sf::Texture const &my_texture);
+        void animate() override;
 
 };
 

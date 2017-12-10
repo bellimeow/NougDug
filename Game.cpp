@@ -10,7 +10,7 @@
 
 void Game::run()
 {
-    window.create(sf::VideoMode(256*display_size_multiplier, 288*display_size_multiplier), "Noug Dug");
+    window.create(sf::VideoMode(256*DISPLAY_SIZE_MULTIPLIER, 288*DISPLAY_SIZE_MULTIPLIER), "Noug Dug");
 
     change_state(current_state);
 

@@ -18,9 +18,9 @@ class Game
 {
     private:
         std::vector<AbstractGameState*> states;
-        unsigned int display_size_multiplier{3};
-
     public:
+
+        static const unsigned int DISPLAY_SIZE_MULTIPLIER{3};
         int current_state{};
         bool win{false};
         sf::RenderWindow window;

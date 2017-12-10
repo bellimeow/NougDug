@@ -116,7 +116,7 @@ void PlayState::change_state()
 
 void PlayState::draw()
 {
-    sf::Texture text;
+    /*sf::Texture text;
 
     if (!text.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/deathp.png"))
 
@@ -129,7 +129,8 @@ void PlayState::draw()
 
     sprite.setTexture(text);
 
-    window_ptr->draw(sprite);
+    window_ptr->draw(sprite);*/
+    board->draw();
 }
 
 void PlayState::update()
@@ -142,7 +143,7 @@ void PlayState::initialize() {
     std::ifstream game_board{load_game_board (path)};
     std::ifstream* level_ptr{&game_board};
     PlayState* p{this};
-    board = new Board(level_ptr, board_width, board_height, p);
+    board = new Board(level_ptr, board_width, board_height, p, window_ptr);
     std::cout << "Init" << "\n";
 }
 

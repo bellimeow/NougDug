@@ -16,20 +16,21 @@ class Sprite
         sf::Texture texture;
         //std::vector<coordinate> sprite_position;
         std::map< std::string, sf::Texture*> sprite_sheets;
-
         /*struct coordinate
         {
             int x;
             int y;
         };*/
 
+
     public:
         Sprite();
         Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
-
+        std::string me{"Sprite"};
+        const sf::Texture &getTexture() const;
         std::string sprite_sheet_path{"/home/isade842/Documents/TDP005/NougDug/documents/Nougdug"};
 
-        sf::Sprite draw();
+        virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Texture my_texture);
         sf::Texture get_sprite_sheet( std::string path);
         void load_sprite_sheets();
 
