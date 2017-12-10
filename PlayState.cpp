@@ -17,9 +17,17 @@ PlayState::PlayState( Game* game, sf::RenderWindow* window_ptr )
     //load_game_board (")
     // board = new Board
 
-    Sprite test;
-    test.load_sprite_sheets();
-    window_test.draw();
+    sf::Texture text;
+
+    if (!text.loadFromFile("/home/isade842/Downloads/unnamed.jpg"))
+
+    {
+        std::cerr<< "gick inte att ladda, deathp.png";
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(text);
+
+    window_ptr->draw(sprite);
 }
 
 int PlayState::get_player_lives()
