@@ -28,7 +28,7 @@ void MenuState::update()
 void MenuState::draw()
 {
     sf::Texture texture;
-    if (!texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/noug.png"))
+    if (!texture.loadFromFile("/home/seblu114/Downloads/noug.png"))
     {
         std::cerr << "Rawr!\n";
     }
@@ -38,7 +38,7 @@ void MenuState::draw()
 
     sf::Texture start_texture;
     sf::RectangleShape start{sf::Vector2f(200, 150)};
-    if (!start_texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/Start.png"))
+    if (!start_texture.loadFromFile("/home/seblu114/Downloads/Start.png"))
     {
         std::cerr << "Nope!";
     }
