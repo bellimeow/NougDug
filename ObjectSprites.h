@@ -28,6 +28,8 @@ enum class ObjectType
     ROOTS_1, ROOTS_2, ROOTS_3, ROOTS_4,
 
     EXTRA_POINT,
+
+    PROJECTILE
 };
 
 

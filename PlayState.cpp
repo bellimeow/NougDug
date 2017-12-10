@@ -118,7 +118,7 @@ void PlayState::draw()
 {
     sf::Texture text;
 
-    if (!text.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/deathp.png"))
+    if (!text.loadFromFile("/home/isade842/Documents/TDP005/NougDug/documents/Nougdug/deathp.png"))
 
     {
         std::cerr<< "gick inte att ladda, deathp.png";

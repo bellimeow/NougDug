@@ -27,7 +27,7 @@ class Sprite
         Sprite();
         Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
 
-        std::string sprite_sheet_path{"/home/isade842/Documents/TDP005/NougDug/documents/Nougdug"};
+        static const std::string sprite_sheet_path;
 
         sf::Sprite draw();
         sf::Texture get_sprite_sheet( std::string path);

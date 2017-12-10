@@ -6,6 +6,9 @@
 #include <string>
 #include "Sprite.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
+const std::string Sprite::sprite_sheet_path = "/home/isade842/Documents/TDP005/NougDug/documents/Nougdug";
 
 Sprite::Sprite(const std::string &sprite_sheet_path)
         : sprite_sheet_path(sprite_sheet_path)
@@ -33,13 +36,22 @@ void Sprite::animate()
 
 void Sprite::load_sprite_sheets()
 {
-    sf::Texture player_sprite_sheet;
-    if (!player_sprite_sheet.loadFromFile(sprite_sheet_path + "deathp.png" ))
+    std::array file_names<std::string>{ "player","demodog","demogorgon",
+                                        "dirt","tunnel","rock",
+                                        "nougat","roots", "extra_points",
+                                        "projectile"};
+
+    sf::Texture _sprite_sheet;
+
+    for (int i = 0; i < file_names.size(); ++i)
     {
-        sprite_sheets.insert(std::pair<std::string, sf::Texture*>("player", &player_sprite_sheet));
+        sprite_sheets[file_names[i]] = new sf::Texture;
+
+        if (!sprite_sheets[file_names[i]]->loadFromFile( sprite_sheet_path + file_names[i] + ".png" ))
+        {
+            std::cerr << "Couldn't open " + file_names[i] + " sprite sheet file!";
+        }
     }
-
-
 }
 
 Sprite::Sprite()
