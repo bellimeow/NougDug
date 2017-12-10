@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
+#include "SpritesType.h"
 
 class Sprite
 {
@@ -32,6 +33,7 @@ class Sprite
         sf::Sprite draw();
         sf::Texture get_sprite_sheet( std::string path);
         void load_sprite_sheets();
+        sf::IntRect extract_texture_position(SpriteType sprite_type);
 
         virtual void animate();
 
