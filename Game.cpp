@@ -17,6 +17,7 @@ void Game::run()
     while(window.isOpen())
     {
         sf::Event action;
+        window.clear(sf::Color::Black);
 
         while(window.pollEvent(action))
         {
@@ -30,11 +31,10 @@ void Game::run()
             }
         }
 
-        window.clear(sf::Color::Black);
 
         // draw everything here...
         // window.draw(...);
-
+        states[current_state]->draw();
         update();
 
 

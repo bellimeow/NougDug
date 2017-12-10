@@ -8,3 +8,9 @@ void Block::erase_block()
 {
 
 }
+
+Block::Block( int depth )
+    :depth{depth}
+{
+
+}

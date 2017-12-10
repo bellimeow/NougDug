@@ -3,10 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
-#include <map>
-#include <SFML/Graphics/Sprite.hpp>
 
 class Sprite
 {
@@ -24,15 +24,18 @@ class Sprite
         };*/
 
     public:
-        Sprite(); //implementera default konstruktor
+        Sprite();
+        Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
 
-        static std::string sprite_sheet_path{"/home/isade842/Documents/TDP005/NougDug/documents/Nougdug"};
+        std::string sprite_sheet_path{"/home/isade842/Documents/TDP005/NougDug/documents/Nougdug"};
 
         sf::Sprite draw();
         sf::Texture get_sprite_sheet( std::string path);
         void load_sprite_sheets();
 
         virtual void animate();
+
+        void set_position(int row, int column) ;
 };
 
 #endif

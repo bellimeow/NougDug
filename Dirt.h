@@ -10,7 +10,9 @@ private:
 
 
 public:
-    // int calculate_depth;
+
+    Dirt(int depth);
+        void draw(sf::RenderWindow*);
     void animate() override;
 
 };

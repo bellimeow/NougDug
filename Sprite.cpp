@@ -7,7 +7,8 @@
 #include "Sprite.h"
 #include <SFML/Graphics.hpp>
 
-Sprite::Sprite()
+Sprite::Sprite(const std::string &sprite_sheet_path)
+        : sprite_sheet_path(sprite_sheet_path)
 {
 
 }
@@ -38,5 +39,15 @@ void Sprite::load_sprite_sheets()
         sprite_sheets.insert(std::pair<std::string, sf::Texture*>("player", &player_sprite_sheet));
     }
 
+
+}
+
+Sprite::Sprite()
+{
+
+}
+
+void Sprite::set_position( int row, int column )
+{
 
 }

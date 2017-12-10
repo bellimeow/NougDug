@@ -36,33 +36,22 @@ void MenuState::draw()
     sf::RectangleShape title{sf::Vector2f(768, 360)};
     title.setTexture(tp);
 
-    sf::Text text;
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
+    sf::Texture start_texture;
+    sf::RectangleShape start{sf::Vector2f(200, 150)};
+    if (!start_texture.loadFromFile("/home/seblu114/Downloads/Start.png"))
     {
         std::cerr << "Nope!";
     }
-    text.setFont(font); // font is a sf::Font
+    sf::Texture* start_tp = &start_texture;
+   start.setTexture( start_tp );
 
-// set the string to display
-    text.setString("Press Any Key to Continue");
-
-// set the character size
-    text.setCharacterSize(24); // in pixels, not points!
-
-// set the color
-    text.setColor(sf::Color::White);
-
-// set the text style
-    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-
-    text.setPosition(sf::Vector2f(50, 360));
+    start.setPosition(sf::Vector2f(284, 440));
 
 
 // inside the main loop, between window.clear() and window.display()
 
     window_ptr->draw(title);
-    window_ptr->draw(text);
+    window_ptr->draw(start);
 }
 
 MenuState::MenuState( Game* game, sf::RenderWindow* window_ptr )

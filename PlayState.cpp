@@ -17,17 +17,6 @@ PlayState::PlayState( Game* game, sf::RenderWindow* window_ptr )
     //load_game_board (")
     // board = new Board
 
-    sf::Texture text;
-
-    if (!text.loadFromFile("/home/isade842/Downloads/unnamed.jpg"))
-
-    {
-        std::cerr<< "gick inte att ladda, deathp.png";
-    }
-    sf::Sprite sprite;
-    sprite.setTexture(text);
-
-    window_ptr->draw(sprite);
 }
 
 int PlayState::get_player_lives()
@@ -127,7 +116,20 @@ void PlayState::change_state()
 
 void PlayState::draw()
 {
-    std::cout << "Blah" << "\n";
+    sf::Texture text;
+
+    if (!text.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/deathp.png"))
+
+    {
+        std::cerr<< "gick inte att ladda, deathp.png";
+    }
+    sf::Sprite sprite;
+    sprite.setPosition(sf::Vector2f(200, 150));
+    sprite.setScale(sf::Vector2f(3, 3));
+
+    sprite.setTexture(text);
+
+    window_ptr->draw(sprite);
 }
 
 void PlayState::update()

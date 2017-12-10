@@ -3,7 +3,7 @@
 
 #include "Sprite.h"
 
-class Block : Sprite
+class Block : public Sprite
 {
 
     protected:
@@ -12,6 +12,8 @@ class Block : Sprite
         int depth;
 
     public:
+
+        Block(int depth);
         void erase_block();
 
 };

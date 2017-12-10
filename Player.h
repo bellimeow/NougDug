@@ -15,6 +15,7 @@ class Player : Character
         int current_x;
         int current_y;
 
+
     public:
         bool can_shoot{true};
         bool invulnerable{false};
@@ -28,7 +29,7 @@ class Player : Character
         int get_current_x() const;
         int get_current_y() const;
 
-        void set_position(int row, int column) override ;
+        void set_position(int row, int column) ;
 };
 
 #endif
