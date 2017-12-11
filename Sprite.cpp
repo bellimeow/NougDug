@@ -8,18 +8,17 @@
 #include "Game.h"
 #include <iostream>
 
-const std::string Sprite::sprite_sheet_path = "./documents/Nougdug";
+const std::string Sprite::sprite_sheet_path = "./documents/Nougdug/";
+
+std::map< std::string, sf::Texture*> Sprite::sprite_sheets{};
 
 
-void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column)
+
+void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite sprite)
 {
-
-    //sf::Sprite sprite;
-    sf::RectangleShape sprite{sf::Vector2f{16 * Game::DISPLAY_SIZE_MULTIPLIER, 16 * Game::DISPLAY_SIZE_MULTIPLIER}};
-    //sprite.setFillColor(sf::Color::Blue);
-    sprite.setTexture(&texture);
-    //sprite.setScale(sf::Vector2f{16 * Game::DISPLAY_SIZE_MULTIPLIER, 16 * Game::DISPLAY_SIZE_MULTIPLIER});
+    sprite.setScale(sf::Vector2f{Game::DISPLAY_SIZE_MULTIPLIER, Game::DISPLAY_SIZE_MULTIPLIER});
     sprite.setPosition(sf::Vector2f((16*column*Game::DISPLAY_SIZE_MULTIPLIER), (16*row*Game::DISPLAY_SIZE_MULTIPLIER)));
+
     window_ptr->draw(sprite);
 }
 
@@ -44,9 +43,9 @@ void Sprite::load_sprite_sheets()
 
     for (int i = 0; i < file_names.size(); ++i)
     {
-        sprite_sheets[file_names[i]] = new sf::Texture;
+        Sprite::sprite_sheets[file_names[i]] = new sf::Texture;
 
-        if (!sprite_sheets[file_names[i]]->loadFromFile( sprite_sheet_path + file_names[i] + ".png" ))
+        if (!Sprite::sprite_sheets[file_names[i]]->loadFromFile( sprite_sheet_path + file_names[i] + ".png" ))
         {
             std::cerr << "Couldn't open " + file_names[i] + " sprite sheet file!";
         }
@@ -63,7 +62,12 @@ void Sprite::set_position( int row, int column )
 
 }
 
-sf::IntRect extract_texture_position(SpriteType sprite_type)
+sf::Texture Sprite::get_sprite_sheet()
+{
+    return sf::Texture();
+}
+
+sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
 {
 /*      ROW 1 : | 0 | 1 | 2 | 3 |
  *      ROW 2 : | 4 | 5 | 6 | 7 |
@@ -74,10 +78,10 @@ sf::IntRect extract_texture_position(SpriteType sprite_type)
 
     std::vector<sf::IntRect> sheet_coordinates
             {
-                {0,  0, 16, 16}, {17,  0, 16, 16}, {33,  0, 16, 16}, {49,  0, 16, 16},
-                {0, 17, 16, 16}, {17, 17, 16, 16}, {33, 17, 16, 16}, {49, 17, 16, 16},
-                {0, 33, 16, 16}, {17, 33, 16, 16}, {33, 33, 16, 16}, {49, 33, 16, 16},
-                {0, 49, 16, 16}, {17, 49, 16, 16}, {33, 49, 16, 16}, {49, 49, 16, 16}
+                {0,  0, 16, 16}, {17,  0, 16, 16}, {34,  0, 16, 16}, {51,  0, 16, 16},
+                {0, 17, 16, 16}, {17, 17, 16, 16}, {34, 17, 16, 16}, {51, 17, 16, 16},
+                {0, 34, 16, 16}, {17, 34, 16, 16}, {34, 34, 16, 16}, {51, 34, 16, 16},
+                {0, 51, 16, 16}, {17, 51, 16, 16}, {34, 51, 16, 16}, {51, 51, 16, 16}
             };
 
     switch (sprite_type)

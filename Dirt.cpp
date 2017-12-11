@@ -7,7 +7,8 @@
 Dirt::Dirt( int depth )
         : Block( depth )
 {
-    texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/empty_tunnel.png");
+    texture = get_sprite_sheet();
+
 }
 
 void Dirt::animate()
@@ -15,13 +16,24 @@ void Dirt::animate()
     Sprite::animate();
 }
 
-void Dirt::draw( sf::RenderWindow * window, int row, int column)
+void Dirt::draw( sf::RenderWindow * window, int row, int column, sf::Sprite dirt_sprite)
 {
-    Sprite::draw( window, row, column);
+    std::map<int, SpriteType> dirt_depth_map{ {1, SpriteType::DIRT_DEPTH_1},
+                                              {2, SpriteType::DIRT_DEPTH_2},
+                                              {3, SpriteType::DIRT_DEPTH_3},
+                                              {4, SpriteType::DIRT_DEPTH_4} };
+
+    dirt_sprite.setTexture(texture);
+    dirt_sprite.setTextureRect(Sprite::extract_texture_position(dirt_depth_map[depth]));
+
+    Sprite::draw( window, row, column, dirt_sprite);
 }
 
 sf::Texture Dirt::get_sprite_sheet()
 {
-    //sf::Texture sprite_sheet{ sprite_sheets["Dirt"] };
+
+     sf::Texture dirt_sheet {*Sprite::sprite_sheets["dirt"]};
+
+    return dirt_sheet;
 
 }

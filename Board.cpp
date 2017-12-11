@@ -24,8 +24,9 @@ Board::Board(std::ifstream* game_board, const int width, const int height, PlayS
 
     set_depth_levels();
 
+    Sprite::load_sprite_sheets();
+
     insert_objects(game_board);
-    //insert_objects(characters, game_board, "Characters");
 }
 
 void Board::check_collision() {
@@ -80,22 +81,15 @@ BlockFunctionMap Board::create_block_function_map()
     //func.emplace('X', &create_extra_points);
     func.emplace('B', &create_background);
 
-    //ScriptFunction x;
-    //(*x)();
-
-    //std::function<void (void)> x;
-    //x(...);
-
     return func;
 }
 
 CharacterFunctionMap Board::create_character_function_map()
 {
-    //HUr kommer specifik sprite ritas ut?
     CharacterFunctionMap func;
-   /* func.emplace('@', &create_player);
+    func.emplace('@', &create_player);
     func.emplace('=', &create_demodog);
-    func.emplace('#', &create_demogorgon);*/
+    //func.emplace('#', &create_demogorgon);
 
     return func;
 }
@@ -126,7 +120,7 @@ void Board::insert_objects( std::ifstream* ifs)
                     blocks[row][column] = (*function)(depth_level);
                     break;
                 }
-                else if (character_map.count(obj_char > 0))
+                else if (character_map.count(obj_char) > 0)
                 {
                     CharacterFunction function = character_map[obj_char];
                     characters[row][column] = (*function)();
@@ -150,9 +144,12 @@ void Board::insert_objects( std::ifstream* ifs)
 
 void Board::set_board_size(std::vector<std::vector<Sprite*>> &object_vector, const unsigned int width, const unsigned int height)
 {
+    Sprite* null{nullptr};
+
     object_vector.resize(height);
     for (auto row = object_vector.begin(); row != object_vector.end(); ++row) {
         (*row).resize(width);
+        std::fill((*row).begin(), (*row).end(), null);
     }
 }
 
@@ -164,18 +161,17 @@ void Board::set_depth_levels()
 
     int depth {board_dirt_size/4};
 
-    depth_levels[1] = BACKGROUND_DEPTH ;
-    depth_levels[2] = depth_levels[1] + depth;
-    depth_levels[3] = depth_levels[2] + depth;
-    depth_levels[4] = depth_levels[3] + depth;
-
     int rest{board_dirt_size % 4};
 
-    if (rest != 0)
+    depth_levels[1] = BACKGROUND_DEPTH ;
+
+    for (int i{ 2 }; i < 5; ++i)
     {
-        for (int level = 1; rest > 0 ; ++level)
+        depth_levels[i] = depth_levels[i-1] + depth;
+
+        if ( rest > 0)
         {
-            depth_levels[level] += 1;
+            depth_levels[i] += 1;
             --rest;
         }
     }
@@ -202,6 +198,30 @@ int Board::check_depth_level(int const row)
     return 0;
 }
 
+
+void Board::draw()
+{
+    for (int row = 0; row < blocks.size(); ++row)
+    {
+        for (int column = 0; column < blocks[row].size() ; ++column)
+        {
+            sf::Sprite sprite;
+            if (blocks[row][column] != nullptr ) {
+                blocks[row][column]->draw( window_ptr, row, column, sprite );
+            }
+            if (characters[row][column] != nullptr)
+            {
+                characters[row][column]->draw( window_ptr, row, column, sprite);
+            }
+        }
+    }
+}
+
+/*Sprite* Board::create_root(int depth)
+{
+    return new Root(depth);
+}*/
+
 Sprite* Board::create_dirt(int depth)
 {
     return new Dirt(depth);
@@ -219,11 +239,6 @@ Sprite* Board::create_rock(int depth)
     return nullptr;
 }
 
-/*Sprite* Board::create_root(int depth)
-{
-    return new Root(depth);
-}*/
-
 /*Sprite* Board::create_extra_points(int depth)
 {
     return new ExtraPoints(depth);
@@ -239,27 +254,17 @@ void Board::player_action( std::string action )
 {
     if (action == "right")
     {
-        // save check_collision_simple();
-
-        // characters.[][];
+        //move
+        //player->animate
     }
 }
 
-void Board::draw()
+Sprite *Board::create_player()
 {
-    for (int row = 0; row < blocks.size(); ++row)
-    {
-        for (int column = 0; column < blocks[row].size() ; ++column)
-        {
-            if (blocks[row][column] != nullptr )
-            {
-                blocks[row][column]->draw( window_ptr, row, column);
-                /*if (characters[row][column] != nullptr)
-                {
-                    characters[row][column]->draw( window_ptr, row, column, characters[row][column]->getTexture());
+    return new Player();
+}
 
-                }*/
-            }
-        }
-    }
+Sprite *Board::create_demodog()
+{
+    return nullptr;
 }

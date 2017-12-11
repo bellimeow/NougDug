@@ -6,13 +6,14 @@
 #include <fstream>
 #include "Sprite.h"
 
-class Character : Sprite
+class Character : public Sprite
 {
 protected:
     struct position;
 
     const int lives{};
     const int step{};
+
 
     struct position
     {

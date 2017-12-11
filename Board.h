@@ -61,6 +61,9 @@ class Board
         //static Sprite* create_root(int);
         //static Sprite* create_extra_points(int);
         static Sprite* create_background(int);
+        static Sprite* create_player();
+        static Sprite* create_demodog();
+        //static Sprite* create_player();
 };
 
 #endif

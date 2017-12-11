@@ -16,7 +16,7 @@ class Sprite
         //sf::Clock animation_clock;
         sf::Texture texture;
         //std::vector<coordinate> sprite_position;
-        std::map< std::string, sf::Texture*> sprite_sheets;
+        static std::map< std::string, sf::Texture*> sprite_sheets;
 
         /*struct coordinate
         {
@@ -29,11 +29,11 @@ class Sprite
 
         static const std::string sprite_sheet_path;
 
-        virtual void draw(sf::RenderWindow* window_ptr, int row, int column);
-        sf::Texture get_sprite_sheet( std::string path);
+        virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite sprite);
+        virtual sf::Texture get_sprite_sheet();
 
-        void load_sprite_sheets();
-        sf::IntRect extract_texture_position(SpriteType sprite_type);
+        static void load_sprite_sheets();
+        virtual sf::IntRect extract_texture_position(SpriteType sprite_type);
 
         virtual void animate();
 
