@@ -11,6 +11,12 @@
 class Nougat : Sprite
 {
     private:
+    sf::Texture Sprite::get_sprite_sheet()
+    {
+        return *sprite_sheets["dirt"];
+    }
+
+
 };
 
 
