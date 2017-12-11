@@ -26,12 +26,12 @@ class Sprite
 
     public:
         Sprite();
-        Sprite(const std::string &sprite_sheet_path); //implementera default konstruktor
 
         static const std::string sprite_sheet_path;
 
-        virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Texture my_texture);
+        virtual void draw(sf::RenderWindow* window_ptr, int row, int column);
         sf::Texture get_sprite_sheet( std::string path);
+
         void load_sprite_sheets();
         sf::IntRect extract_texture_position(SpriteType sprite_type);
 

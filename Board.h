@@ -14,12 +14,6 @@
 
 class PlayState;
 
-struct block_test
-{
-    int height{};
-    int width{};
-};
-
 class Board
 {
     private:

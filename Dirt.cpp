@@ -15,7 +15,13 @@ void Dirt::animate()
     Sprite::animate();
 }
 
-void Dirt::draw( sf::RenderWindow * window, int row, int column, sf::Texture const &my_texture )
+void Dirt::draw( sf::RenderWindow * window, int row, int column)
 {
-    Sprite::draw( window, row, column, texture);
+    Sprite::draw( window, row, column);
+}
+
+sf::Texture Dirt::get_sprite_sheet()
+{
+    //sf::Texture sprite_sheet{ sprite_sheets["Dirt"] };
+
 }

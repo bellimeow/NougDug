@@ -253,8 +253,7 @@ void Board::draw()
         {
             if (blocks[row][column] != nullptr )
             {
-                std::cout << blocks[row][column]->me << "\n";
-                blocks[row][column]->draw( window_ptr, row, column, blocks[row][column]->getTexture());
+                blocks[row][column]->draw( window_ptr, row, column);
                 /*if (characters[row][column] != nullptr)
                 {
                     characters[row][column]->draw( window_ptr, row, column, characters[row][column]->getTexture());

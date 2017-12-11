@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-#include <SFML/Window/Event.hpp>
+
 #include <iostream>
 #include "PlayState.h"
 #include "MenuState.h"

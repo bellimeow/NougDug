@@ -13,8 +13,9 @@ class Dirt : public Block
         std::string me{"Dirt"};
 
         Dirt(int depth);
-        void draw(sf::RenderWindow* window, int row, int column, sf::Texture const &my_texture);
+        void draw(sf::RenderWindow* window, int row, int column);
         void animate() override;
+        sf::Texture get_sprite_sheet();
 
 };
 
