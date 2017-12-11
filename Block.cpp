@@ -14,3 +14,5 @@ Block::Block( int depth )
 {
 
 }
+
+Block::Block() = default;

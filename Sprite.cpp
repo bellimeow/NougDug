@@ -7,13 +7,13 @@
 #include "Sprite.h"
 #include "Game.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 const std::string Sprite::sprite_sheet_path = "/home/isade842/Documents/TDP005/NougDug/documents/Nougdug";
 
 Sprite::Sprite(const std::string &sprite_sheet_path)
-        : sprite_sheet_path(sprite_sheet_path)
 {
-
+    load_sprite_sheets();
 }
 
 void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Texture my_texture)
@@ -28,11 +28,6 @@ void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Texture
     window_ptr->draw(sprite);
 }
 
-sf::Texture Sprite::get_sprite_sheet(std::string path)
-{
-
-}
-
 void Sprite::animate()
 {
 
@@ -41,7 +36,7 @@ void Sprite::animate()
 
 void Sprite::load_sprite_sheets()
 {
-    std::array file_names<std::string>
+    std::array<std::string,10> file_names
             {
                     "player", "demodog", "demogorgon",
                     "dirt", "tunnel", "rock",
@@ -72,7 +67,7 @@ void Sprite::set_position( int row, int column )
 
 }
 
-sf::IntRect extract_texture_position(SpriteType sprite_type)
+sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
 {
 /*      ROW 1 : | 0 | 1 | 2 | 3 |
  *      ROW 2 : | 4 | 5 | 6 | 7 |
@@ -81,12 +76,12 @@ sf::IntRect extract_texture_position(SpriteType sprite_type)
  *
  * Hur sprites är ordnade i en fil.     */
 
-    std::array sheet_coordinates<sf::IntRect>
+    std::vector<sf::IntRect> sheet_coordinates
             {
-                (0,  0, 16, 16), (17,  0, 16, 16), (33,  0, 16, 16), (49,  0, 16, 16),
-                (0, 17, 16, 16), (17, 17, 16, 16), (33, 17, 16, 16), (49, 17, 16, 16),
-                (0, 33, 16, 16), (17, 33, 16, 16), (33, 33, 16, 16), (49, 33, 16, 16),
-                (0, 49, 16, 16), (17, 49, 16, 16), (33, 49, 16, 16), (49, 49, 16, 16)
+                {0,  0, 16, 16}, {17,  0, 16, 16}, {33,  0, 16, 16}, {49,  0, 16, 16},
+                {0, 17, 16, 16}, {17, 17, 16, 16}, {33, 17, 16, 16}, {49, 17, 16, 16},
+                {0, 33, 16, 16}, {17, 33, 16, 16}, {33, 33, 16, 16}, {49, 33, 16, 16},
+                {0, 49, 16, 16}, {17, 49, 16, 16}, {33, 49, 16, 16}, {49, 49, 16, 16}
             };
 
     switch (sprite_type)

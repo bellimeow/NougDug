@@ -7,15 +7,18 @@
 Dirt::Dirt( int depth )
         : Block( depth )
 {
-    texture.loadFromFile("/home/seblu114/TDP005/NougDug/documents/Nougdug/empty_tunnel.png");
+    texture.loadFromFile("/home/isade842/Documents/TDP005/NougDug/documents/Nougdug/deathp.png");
 }
 
-void Dirt::animate()
-{
+void Dirt::draw(sf::RenderWindow *window, int row, int column, const sf::Texture &my_texture) {
+
+}
+
+void Dirt::animate() {
     Sprite::animate();
 }
 
-void Dirt::draw( sf::RenderWindow * window, int row, int column, sf::Texture const &my_texture )
+sf::Texture Sprite::get_sprite_sheet()
 {
-    Sprite::draw( window, row, column, texture);
+    return *sprite_sheets["dirt"];
 }

@@ -12,8 +12,9 @@ class Block : public Sprite
         int depth;
 
     public:
+        Block();
 
-        Block(int depth);
+        explicit Block(int depth);
         void erase_block();
 
 };

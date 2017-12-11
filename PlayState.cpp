@@ -11,7 +11,7 @@ std::string AbstractGameState::level;
 PlayState::PlayState( Game* game, sf::RenderWindow* window_ptr )
         : game{game}, window_ptr{window_ptr}
 {
-    directory = "/home/seblu114/TDP005/NougDug/";
+    directory = "/home/isade842/Documents/TDP005/NougDug";
     level = "level1.txt";
     path = directory + level;
     //load_game_board (")

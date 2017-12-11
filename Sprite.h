@@ -31,7 +31,7 @@ class Sprite
         static const std::string sprite_sheet_path;
 
         virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Texture my_texture);
-        sf::Texture get_sprite_sheet( std::string path);
+        virtual sf::Texture get_sprite_sheet() = 0;
         void load_sprite_sheets();
         sf::IntRect extract_texture_position(SpriteType sprite_type);
 
