@@ -8,6 +8,7 @@ class Tunnel : public Block
 
     private:
         sf::Texture four_way;
+        SpriteType
 
     public:
         Tunnel(int depth);
@@ -17,6 +18,10 @@ class Tunnel : public Block
         void animate() override;
 
         sf::Texture get_sprite_sheet() override ;
+        bool check_passable(std::string character);
+
+        const std::string &get_i_am_a() const override;
+        void set_position(int y, int x) override;
 
 };
 

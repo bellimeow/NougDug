@@ -8,7 +8,7 @@ class Rock : public Block
 
     private:
 
-        bool is_falling;
+        bool falling;
 
     public:
 
@@ -17,6 +17,10 @@ class Rock : public Block
         void animate() override;
         sf::Texture get_sprite_sheet() override ;
 
+        bool check_passable( std::string character);
+
+        const std::string &get_i_am_a() const override;
+        void set_position(int y, int x) override;
 };
 
 #endif

@@ -6,8 +6,6 @@
 class Demodog : public Enemies
 {
     private:
-        int current_x;
-        int current_y;
 
 
     public:
@@ -17,6 +15,11 @@ class Demodog : public Enemies
         void move(std::string direction);
 
         sf::Texture get_sprite_sheet() override ;
+
+        const std::string &get_i_am_a() const override;
+        void set_position(int y, int x) override;
+
+        bool check_passable( std::string ) override;
 };
 
 

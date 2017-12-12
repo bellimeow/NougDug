@@ -14,7 +14,7 @@ class Block : public Sprite
     public:
         Block();
 
-        explicit Block(int depth);
+        explicit Block(int depth, std::string object);
         void erase_block();
 
 };

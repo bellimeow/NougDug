@@ -5,7 +5,7 @@
 #include "Demodog.h"
 
 Demodog::Demodog()
-        : Enemies(3)
+        : Enemies(3, "demodog")
 {
     texture = get_sprite_sheet();
 }
@@ -39,4 +39,20 @@ void Demodog::animate()
 void Demodog::move( std::string direction )
 {
 
+}
+
+void Demodog::set_position( int y, int x )
+{
+    current_position.y = y;
+    current_position.x = x;
+}
+
+bool Demodog::check_passable( std::string object )
+{
+    return !(object == "rock" || object == "nougat");
+}
+
+const std::string &Demodog::get_i_am_a() const
+{
+    return i_am_a;
 }

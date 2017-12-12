@@ -31,19 +31,19 @@ class Board
                                            {2, 0},
                                            {3, 0},
                                            {4, 0}   };
-
+        std::array<Sprite*, 5> get_adjacent_objects(sf::Vector2i mid_pos);
         void check_collision();
         bool check_collision_simple();
         bool rock_proximity();
         bool projectile_collide();
         bool rock_crush();
-        bool wall();
         bool dig();
         bool collision_with_enemy();
-        bool immovable_object();
+        bool check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos);
         int calculate_score();
         void insert_objects(std::ifstream* ifs);
         void set_board_size(std::vector<std::vector<Sprite*>>& object_vector, const unsigned int width, const unsigned int height);
+        void moving_character(int x_add, int y_add, sf::Vector2i character_pos);
 
         static Sprite* create_dirt(int);
         static Sprite* create_tunnel(int);
@@ -65,6 +65,7 @@ class Board
         void player_action(std::string);
         void draw();
         void set_depth_levels();
+        void check_tunnel (sf::Vector2i position);
         int check_depth_level (int const);
 
 };

@@ -5,7 +5,7 @@
 #include "Dirt.h"
 
 Dirt::Dirt( int depth )
-        : Block( depth )
+        : Block( depth, "dirt")
 {
     texture = get_sprite_sheet();
 
@@ -36,4 +36,20 @@ sf::Texture Dirt::get_sprite_sheet()
 
     return dirt_sheet;
 
+}
+
+bool Dirt::check_passable( std::string character )
+{
+    return !(character == "player" || character == "demogorgon" || character == "demodog");
+}
+
+void Dirt::set_position( int y, int x )
+{
+    current_position.y = y;
+    current_position.x = x;
+}
+
+const std::string &Dirt::get_i_am_a() const
+{
+    return i_am_a;
 }

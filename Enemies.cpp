@@ -4,8 +4,8 @@
 
 #include "Enemies.h"
 
-Enemies::Enemies(int lives)
-    : Character(lives, 1)
+Enemies::Enemies(int lives, std::string object)
+    : Character(lives, 1, object)
 {
 
 }

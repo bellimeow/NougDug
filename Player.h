@@ -12,10 +12,6 @@ class Player : public Character
         //const int lives{3};
         //const int step{1};
 
-        int current_x;
-        int current_y;
-
-
     public:
         bool can_shoot{true};
         bool invulnerable{false};
@@ -31,9 +27,12 @@ class Player : public Character
         int get_current_x() const;
         int get_current_y() const;
 
-        sf::Texture get_sprite_sheet() override ;
+        sf::Texture get_sprite_sheet() override;
 
-        void set_position(int row, int column) ;
+        const std::string &get_i_am_a() const override;
+        void set_position(int y, int x) override;
+
+        bool check_passable(std::string) override;
 };
 
 #endif

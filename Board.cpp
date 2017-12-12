@@ -10,6 +10,7 @@
 #include "Dirt.h"
 #include "Rock.h"
 #include "Tunnel.h"
+#include "Demodog.h"
 
 typedef Sprite* (*BlockFunction)(int);
 typedef std::unordered_map<char, BlockFunction> BlockFunctionMap;
@@ -30,8 +31,11 @@ Board::Board(std::ifstream* game_board, const int width, const int height, PlayS
     insert_objects(game_board);
 }
 
-void Board::check_collision() {
-
+void Board::check_collision()
+{
+    //check_passable
+    //check_dig
+    //collision_with_enemy
 }
 
 bool Board::check_collision_simple() {
@@ -50,20 +54,27 @@ bool Board::rock_crush() {
     return false;
 }
 
-bool Board::wall() {
+bool Board::dig() {
     return false;
 }
 
-bool Board::dig() {
-    return false;
+void
+
+void Board::check_tunnel(sf::Vector2i position)
+{
+    blocks[position.y][position.x]->get_adjacent_tunnels();
 }
 
 bool Board::collision_with_enemy() {
     return false;
 }
 
-bool Board::immovable_object() {
-    return false;
+bool Board::check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos) {
+
+    std::string passing_object_type {characters[passing_object_pos.y][passing_object_pos.x]->get_i_am_a()};
+
+
+    return blocks[object_pos.y][object_pos.x]->check_passable(passing_object_type);
 }
 
 int Board::calculate_score() {
@@ -260,40 +271,38 @@ void Board::player_action( std::string action )
     }
     else
     {
-        Sprite* temp;
         sf::Vector2i player_pos {player->get_current_x(), player->get_current_y()};
 
-        if ( action == "right" && player_pos.x < 15 )
+        std::map<std::string, sf::Vector2i> direction_values{ {"up",    {0, -1}},
+                                                              {"right", {1, 0 }},
+                                                              {"down",  {0, 1 }},
+                                                              {"left",  {-1, 0}} };
+
+        if ( ( action == "right" && player_pos.x < update_playstate->board_width - 1 ) ||
+             ( action == "left" && player_pos.x > 0 ) ||
+             ( action == "up" && player_pos.y > BACKGROUND_DEPTH - 1 ) ||
+             ( action == "down" && player_pos.y < update_playstate->board_height - 1 ) )
         {
-            temp = characters[player_pos.y][player_pos.x+1];
-            characters[player_pos.y][player_pos.x+1] = player;
-            characters[player_pos.y][player_pos.x] = temp;
-            player->set_position(player_pos.y, player_pos.x+1);
+            moving_character(direction_values[action].x, direction_values[action].y, player_pos);
         }
-        else if ( action == "left" && player_pos.x > 0 )
-        {
-            temp = characters[player_pos.y][player_pos.x-1];
-            characters[player_pos.y][player_pos.x-1] = player;
-            characters[player_pos.y][player_pos.x] = temp;
-            player->set_position(player_pos.y, player_pos.x-1);
-        }
-        else if ( action == "up" && player_pos.y > 2 )
-        {
-            temp = characters[player_pos.y-1][player_pos.x];
-            characters[player_pos.y-1][player_pos.x] = player;
-            characters[player_pos.y][player_pos.x] = temp;
-            player->set_position(player_pos.y-1, player_pos.x);
-        }
-        else if ( action == "down" && player_pos.y < 17 )
-        {
-            temp = characters[player_pos.y+1][player_pos.x];
-            characters[player_pos.y+1][player_pos.x] = player;
-            characters[player_pos.y][player_pos.x] = temp;
-            player->set_position(player_pos.y+1, player_pos.x);
-        }
+
         //player->animate();
     }
 }
+
+void Board::moving_character(int x_add, int y_add, sf::Vector2i character_pos)
+{
+    Sprite* temp;
+
+    //collision check
+
+    temp = characters[character_pos.y + y_add][character_pos.x + x_add];
+    characters[character_pos.y + y_add][character_pos.x + x_add] = player;
+    characters[character_pos.y][character_pos.x] = temp;
+
+    player->set_position(character_pos.y + y_add, character_pos.x + x_add);
+}
+
 
 Sprite *Board::create_player()
 {
@@ -302,5 +311,10 @@ Sprite *Board::create_player()
 
 Sprite *Board::create_demodog()
 {
-    return nullptr;
+    return new Demodog();
+}
+
+std::array<Sprite*, 5> Board::get_adjacent_objects( sf::Vector2i mid_pos)
+{
+    return std::array<Sprite*, 5>();
 }

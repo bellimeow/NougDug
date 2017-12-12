@@ -15,7 +15,7 @@ class Enemies : public Character
         void start_hunt();
 
     public:
-        Enemies(int lives);
+        Enemies(int lives, std::string object);
         bool in_hunt_range();
 };
 

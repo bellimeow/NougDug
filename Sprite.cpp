@@ -12,7 +12,15 @@ const std::string Sprite::sprite_sheet_path = "./documents/Nougdug/";
 
 std::map< std::string, sf::Texture*> Sprite::sprite_sheets{};
 
+Sprite::Sprite()
+{
 
+}
+
+Sprite::Sprite(std::string object)
+        : i_am_a{object}
+{
+}
 
 void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite sprite)
 {
@@ -52,16 +60,6 @@ void Sprite::load_sprite_sheets()
     }
 }
 
-Sprite::Sprite()
-{
-
-}
-
-void Sprite::set_position( int row, int column )
-{
-
-}
-
 sf::Texture Sprite::get_sprite_sheet()
 {
     return sf::Texture();
@@ -90,7 +88,8 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
             /*** sprite position 0 ***/
         case SpriteType::FRONT :
         case SpriteType::DIRT_DEPTH_1 :
-        case SpriteType::TUNNEL_D1_4 :
+        case SpriteType::TUNNEL_4 :
+        case SpriteType::TUNNEL_D1_3 :
         case SpriteType::ROCK :
         case SpriteType::NOUGAT :
         case SpriteType::ROOTS_1 :
@@ -122,6 +121,7 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
             /*****       ROW 2        *****/
             /*** sprite position 4 ***/
         case SpriteType::RIGHT:
+        case SpriteType::TUNNEL_D2_3 :
             return sheet_coordinates[4];
 
             /*** sprite position 5 ***/
@@ -141,6 +141,7 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
             /*****       ROW 3        *****/
             /*** sprite position 8 ***/
         case SpriteType::LEFT :
+        case SpriteType::TUNNEL_D3_3 :
             return sheet_coordinates[8];
 
             /*** sprite position 9 ***/
@@ -160,6 +161,7 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
             /*****       ROW 4        *****/
             /*** sprite position 12 ***/
         case SpriteType::BACK :
+        case SpriteType::TUNNEL_D4_3 :
             return sheet_coordinates[12];
 
             /*** sprite position 13 ***/
@@ -181,3 +183,5 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
             break;
     }
 }
+
+

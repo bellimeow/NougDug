@@ -6,7 +6,7 @@
 #include "Player.h"
 
 Player::Player()
-        : Character(3, 1)
+        : Character(3, 1, "player")
 {
     texture = get_sprite_sheet();
 }
@@ -21,18 +21,18 @@ const int Player::get_step() const
     return step;
 }
 
-void Player::set_position(int row, int column)
+void Player::set_position(int y, int x)
 {
-    Player::current_y = row;
-    Player::current_x = column;
+   current_position.y = y;
+   current_position.x = x;
 }
 
 int Player::get_current_x() const {
-    return current_x;
+    return current_position.x;
 }
 
 int Player::get_current_y() const {
-    return current_y;
+    return current_position.y;
 }
 
 
@@ -66,4 +66,14 @@ void Player::animate()
 void Player::move(std::string direction)
 {
 
+}
+
+bool Player::check_passable( std::string object )
+{
+    return !(object == "rock" || object == "projectile");
+}
+
+const std::string &Player::get_i_am_a() const
+{
+    return i_am_a;
 }

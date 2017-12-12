@@ -4,7 +4,7 @@
 
 #include "Character.h"
 
-Character::Character( int lives, int step )
-    :lives(lives), step(step)
+Character::Character( int lives, int step, std::string object )
+    : lives(lives), step(step), Sprite(object)
 {
 }

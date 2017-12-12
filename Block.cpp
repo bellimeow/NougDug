@@ -9,8 +9,8 @@ void Block::erase_block()
 
 }
 
-Block::Block( int depth )
-    :depth{depth}
+Block::Block( int depth, std::string object )
+    :depth{depth}, Sprite(object)
 {
 
 }

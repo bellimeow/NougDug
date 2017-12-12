@@ -22,7 +22,7 @@ protected:
     };
 
 public:
-        Character( int lives, int step );
+        Character( int lives, int step, std::string object );
 
        // virtual void move() = 0;
 };
