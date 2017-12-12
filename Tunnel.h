@@ -3,15 +3,20 @@
 
 #include "Block.h"
 
-class Tunnel : Block
+class Tunnel : public Block
 {
 
-private:
+    private:
+        sf::Texture four_way;
 
+    public:
+        Tunnel(int depth);
 
-public:
-    // int calculate_depth;
-    void animate() override;
+        void draw(sf::RenderWindow* window, int row, int column, sf::Sprite dirt_sprite) override ;
+
+        void animate() override;
+
+        sf::Texture get_sprite_sheet() override ;
 
 };
 

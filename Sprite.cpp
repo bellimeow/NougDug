@@ -31,10 +31,10 @@ void Sprite::animate()
 
 void Sprite::load_sprite_sheets()
 {
-    std::array<std::string, 10> file_names
+    std::array<std::string, 11> file_names
             {
                     "player", "demodog", "demogorgon",
-                    "dirt", "tunnel", "rock",
+                    "dirt", "tunnel", "tunnel4", "rock",
                     "nougat", "roots", "extra_points",
                     "projectile"
             };

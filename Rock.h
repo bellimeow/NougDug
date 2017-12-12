@@ -3,16 +3,19 @@
 
 #include "Block.h"
 
-class Rock : Block
+class Rock : public Block
 {
 
-private:
+    private:
 
-    bool is_falling;
+        bool is_falling;
 
-public:
+    public:
 
-    void animate() override;
+        Rock(int depth);
+        void draw(sf::RenderWindow* window, int row, int column, sf::Sprite dirt_sprite) override ;
+        void animate() override;
+        sf::Texture get_sprite_sheet() override ;
 
 };
 

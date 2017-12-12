@@ -24,7 +24,7 @@ protected:
 public:
         Character( int lives, int step );
 
-        virtual void move() = 0;
+       // virtual void move() = 0;
 };
 
 

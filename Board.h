@@ -24,7 +24,7 @@ class Board
         std::vector<std::vector<Sprite*>> blocks;
         std::vector<std::vector<Sprite*>> characters;
         sf::RenderWindow* window_ptr;
-        Sprite* player;
+        Player* player;
         PlayState* update_playstate{};
         sf::Clock time{};
         std::map<int, int> depth_levels{   {1, 0},
@@ -44,6 +44,17 @@ class Board
         int calculate_score();
         void insert_objects(std::ifstream* ifs);
         void set_board_size(std::vector<std::vector<Sprite*>>& object_vector, const unsigned int width, const unsigned int height);
+
+        static Sprite* create_dirt(int);
+        static Sprite* create_tunnel(int);
+        static Sprite* create_rock(int);
+        //static Sprite* create_root(int);
+        //static Sprite* create_extra_points(int);
+        static Sprite* create_background(int);
+        static Sprite* create_player();
+        static Sprite* create_demodog();
+        //static Sprite* create_player();
+
     public:
 
         Board(std::ifstream* game_board, int width, int height, PlayState* ps, sf::RenderWindow* window);
@@ -55,15 +66,7 @@ class Board
         void draw();
         void set_depth_levels();
         int check_depth_level (int const);
-        static Sprite* create_dirt(int);
-        static Sprite* create_tunnel(int);
-        static Sprite* create_rock(int);
-        //static Sprite* create_root(int);
-        //static Sprite* create_extra_points(int);
-        static Sprite* create_background(int);
-        static Sprite* create_player();
-        static Sprite* create_demodog();
-        //static Sprite* create_player();
+
 };
 
 #endif

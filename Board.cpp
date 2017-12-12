@@ -6,9 +6,10 @@
 #include <algorithm>
 #include <unordered_map>
 #include <map>
-#include <string>
 #include "Board.h"
 #include "Dirt.h"
+#include "Rock.h"
+#include "Tunnel.h"
 
 typedef Sprite* (*BlockFunction)(int);
 typedef std::unordered_map<char, BlockFunction> BlockFunctionMap;
@@ -89,7 +90,8 @@ CharacterFunctionMap Board::create_character_function_map()
     CharacterFunctionMap func;
     func.emplace('@', &create_player);
     func.emplace('=', &create_demodog);
-    //func.emplace('#', &create_demogorgon);
+
+    //func.emplace('#', &Board::create_demogorgon);
 
     return func;
 }
@@ -129,7 +131,8 @@ void Board::insert_objects( std::ifstream* ifs)
 
                     if (obj_char == '@')
                     {
-                       player = characters[row][column];
+                        player = reinterpret_cast<Player*>(characters[row][column]);
+                        player->set_position(row, column);
                     }
                     break;
                 }
@@ -229,14 +232,14 @@ Sprite* Board::create_dirt(int depth)
 
 Sprite* Board::create_tunnel(int depth)
 {
-    //return new Tunnel(depth);
-    return nullptr;
+    return new Tunnel(depth);
+    //return nullptr;
 }
 
 Sprite* Board::create_rock(int depth)
 {
-    //return new Rock(depth);
-    return nullptr;
+    return new Rock(depth);
+    //return nullptr;
 }
 
 /*Sprite* Board::create_extra_points(int depth)
@@ -252,10 +255,43 @@ Sprite* Board::create_background(int depth)
 
 void Board::player_action( std::string action )
 {
-    if (action == "right")
+    if (action == "shoot" || action == "place")
     {
-        //move
-        //player->animate
+    }
+    else
+    {
+        Sprite* temp;
+        sf::Vector2i player_pos {player->get_current_x(), player->get_current_y()};
+
+        if ( action == "right" && player_pos.x < 15 )
+        {
+            temp = characters[player_pos.y][player_pos.x+1];
+            characters[player_pos.y][player_pos.x+1] = player;
+            characters[player_pos.y][player_pos.x] = temp;
+            player->set_position(player_pos.y, player_pos.x+1);
+        }
+        else if ( action == "left" && player_pos.x > 0 )
+        {
+            temp = characters[player_pos.y][player_pos.x-1];
+            characters[player_pos.y][player_pos.x-1] = player;
+            characters[player_pos.y][player_pos.x] = temp;
+            player->set_position(player_pos.y, player_pos.x-1);
+        }
+        else if ( action == "up" && player_pos.y > 2 )
+        {
+            temp = characters[player_pos.y-1][player_pos.x];
+            characters[player_pos.y-1][player_pos.x] = player;
+            characters[player_pos.y][player_pos.x] = temp;
+            player->set_position(player_pos.y-1, player_pos.x);
+        }
+        else if ( action == "down" && player_pos.y < 17 )
+        {
+            temp = characters[player_pos.y+1][player_pos.x];
+            characters[player_pos.y+1][player_pos.x] = player;
+            characters[player_pos.y][player_pos.x] = temp;
+            player->set_position(player_pos.y+1, player_pos.x);
+        }
+        //player->animate();
     }
 }
 

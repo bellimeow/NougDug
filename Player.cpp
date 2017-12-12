@@ -63,7 +63,7 @@ void Player::animate()
     std::cout << "Woo\n";
 }
 
-void Player::move()
+void Player::move(std::string direction)
 {
 
 }

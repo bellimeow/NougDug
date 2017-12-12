@@ -16,7 +16,6 @@ class Player : public Character
         int current_y;
 
 
-
     public:
         bool can_shoot{true};
         bool invulnerable{false};
@@ -25,7 +24,7 @@ class Player : public Character
         void feed_nougat();
         void animate();
         void draw(sf::RenderWindow* window, int row, int column, sf::Sprite player_sprite);
-        void move() override ;
+        void move(std::string direction);
 
         const int get_lives() const;
         const int get_step() const;
