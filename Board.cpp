@@ -58,16 +58,19 @@ bool Board::dig() {
     return false;
 }
 
+void
+
 void Board::check_tunnel(sf::Vector2i position)
 {
-    //blocks[position.y][position.x]->get_adjacent_tunnels();
+   // blocks[position.y][position.x]->get_adjacent_tunnels();
 }
 
 bool Board::collision_with_enemy() {
     return false;
 }
 
-bool Board::check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos) {
+bool Board::check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos)
+{
 
     std::string passing_object_type {characters[passing_object_pos.y][passing_object_pos.x]->get_i_am_a()};
 
