@@ -1,9 +1,9 @@
-#ifndef DIRT_H
-#define DIRT_H
+#ifndef BACKGROUND_H
+#define BACKGROUND_H
 
 #include "Block.h"
 
-class Dirt : public Block
+class Background : public Block
 {
 
     private:
@@ -11,11 +11,11 @@ class Dirt : public Block
 
     public:
 
-        Dirt(int depth);
+        Background(int depth);
         void draw(sf::RenderWindow* window, int row, int column, sf::Sprite dirt_sprite) override;
         void animate() override;
         sf::Texture get_sprite_sheet() override;
-        bool check_not_passable( std::string character);
+        bool check_not_passable( std::string character) override;
 
 
 

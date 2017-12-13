@@ -34,10 +34,10 @@ class Sprite
         virtual sf::IntRect extract_texture_position(SpriteType sprite_type);
         virtual void animate();
 
-        virtual bool check_passable( std::string ) = 0;
+        virtual bool check_not_passable( std::string ) = 0;
 
-        virtual const std::string &get_i_am_a() const = 0;
-        virtual void set_position(int y, int x) = 0;
+        const std::string &get_i_am_a() const;
+        void set_position(int y, int x);
 };
 
 #endif

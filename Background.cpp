@@ -1,22 +1,22 @@
 //
-// Created by seblu114 on 12/10/17.
+// Created by seblu114 on 12/13/17.
 //
 
-#include "Dirt.h"
+#include "Background.h"
 
-Dirt::Dirt( int depth )
-        : Block( depth, "dirt")
+Background::Background( int depth )
+        : Block( depth, "background")
 {
     texture = get_sprite_sheet();
 
 }
 
-void Dirt::animate()
+void Background::animate()
 {
     Sprite::animate();
 }
 
-void Dirt::draw( sf::RenderWindow * window, int row, int column, sf::Sprite dirt_sprite)
+void Background::draw( sf::RenderWindow * window, int row, int column, sf::Sprite dirt_sprite)
 {
     std::map<int, SpriteType> dirt_depth_map{ {1, SpriteType::DIRT_DEPTH_1},
                                               {2, SpriteType::DIRT_DEPTH_2},
@@ -26,19 +26,19 @@ void Dirt::draw( sf::RenderWindow * window, int row, int column, sf::Sprite dirt
     dirt_sprite.setTexture(texture);
     dirt_sprite.setTextureRect(Sprite::extract_texture_position(dirt_depth_map[depth]));
 
-    Sprite::draw( window, row, column, dirt_sprite);
+    //Sprite::draw( window, row, column, dirt_sprite);
 }
 
-sf::Texture Dirt::get_sprite_sheet()
+sf::Texture Background::get_sprite_sheet()
 {
 
-     sf::Texture dirt_sheet {*Sprite::sprite_sheets["dirt"]};
+    sf::Texture dirt_sheet {*Sprite::sprite_sheets["dirt"]};
 
     return dirt_sheet;
 
 }
 
-bool Dirt::check_not_passable( std::string character )
+bool Background::check_not_passable( std::string character )
 {
-    return (character == "player" || character == "demogorgon" || character == "demodog");
+    return (character == "null");
 }

@@ -40,18 +40,7 @@ sf::Texture Rock::get_sprite_sheet()
 
 }
 
-bool Rock::check_passable(std::string character )
+bool Rock::check_not_passable(std::string character )
 {
-    return !(character == "player");
-}
-
-void Rock::set_position( int y, int x )
-{
-    current_position.y = y;
-    current_position.x = x;
-}
-
-const std::string &Rock::get_i_am_a() const
-{
-    return i_am_a;
+    return (character == "player");
 }

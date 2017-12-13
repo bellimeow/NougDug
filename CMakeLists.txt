@@ -29,7 +29,7 @@ if (NOT (${SFML_FOUND} STREQUAL "TRUE"))
 endif()
 
 # Ange källfiler, lägg till de filer som ni behöver!
-set(SOURCE_FILES AbstractGameState.h Block.h Block.cpp Board.h Board.cpp Character.h Character.cpp Demodog.h Demogorgon.h Demogorgon.cpp Dirt.h Dirt.cpp EndState.h EndState.cpp Enemies.h Enemies.cpp ExtraPoints.h ExtraPoints.cpp Game.h Game.cpp MenuState.h MenuState.cpp Nougat.h Nougat.cpp Player.h Player.cpp PlayState.h PlayState.cpp Rock.h Sprite.h Sprite.cpp SpritesType.h Tunnel.h Tunnel.cpp)
+set(SOURCE_FILES main.cc AbstractGameState.h Background.h Background.cpp Block.cpp Board.h Board.cpp Character.h Character.cpp Demodog.h Demodog.cpp Demogorgon.h Demogorgon.cpp Dirt.h Dirt.cpp EndState.h EndState.cpp Enemies.h Enemies.cpp ExtraPoints.h ExtraPoints.cpp Game.h Game.cpp MenuState.h MenuState.cpp Nougat.h Nougat.cpp Player.h Player.cpp PlayState.h PlayState.cpp Rock.h Rock.cpp Sprite.h Sprite.cpp SpritesType.h Tunnel.h Tunnel.cpp Background.cpp)
 
 # Säg till CMake att skapa en körbar fil som heter 'sfml'.
 add_executable(sfml ${SOURCE_FILES})

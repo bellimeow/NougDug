@@ -41,18 +41,8 @@ void Demodog::move( std::string direction )
 
 }
 
-void Demodog::set_position( int y, int x )
-{
-    current_position.y = y;
-    current_position.x = x;
-}
 
-bool Demodog::check_passable( std::string object )
+bool Demodog::check_not_passable( std::string object )
 {
-    return !(object == "rock" || object == "nougat");
-}
-
-const std::string &Demodog::get_i_am_a() const
-{
-    return i_am_a;
+    return (object == "rock" || object == "nougat");
 }

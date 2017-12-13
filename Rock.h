@@ -1,5 +1,5 @@
-#ifndef ROOTS_H
-#define ROOTS_H
+#ifndef ROCK_H
+#define ROCK_H
 
 #include "Block.h"
 
@@ -17,10 +17,9 @@ class Rock : public Block
         void animate() override;
         sf::Texture get_sprite_sheet() override ;
 
-        bool check_passable( std::string character);
+        bool check_not_passable( std::string character);
 
-        const std::string &get_i_am_a() const override;
-        void set_position(int y, int x) override;
+
 };
 
 #endif

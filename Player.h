@@ -29,10 +29,7 @@ class Player : public Character
 
         sf::Texture get_sprite_sheet() override;
 
-        const std::string &get_i_am_a() const override;
-        void set_position(int y, int x) override;
-
-        bool check_passable(std::string) override;
+        bool check_not_passable(std::string) override;
 };
 
 #endif

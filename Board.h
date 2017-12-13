@@ -31,19 +31,20 @@ class Board
                                            {2, 0},
                                            {3, 0},
                                            {4, 0}   };
-        std::array<Sprite*, 5> get_adjacent_objects(sf::Vector2i mid_pos);
-        void check_collision();
+        std::array<std::array<Sprite*, 3>, 3> get_adjacent_objects(sf::Vector2i mid_pos);
+        bool check_collision(sf::Vector2i from, sf::Vector2i to);
         bool check_collision_simple();
         bool rock_proximity();
         bool projectile_collide();
         bool rock_crush();
-        bool dig();
+        bool cant_dig(sf::Vector2i to);
         bool collision_with_enemy();
-        bool check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos);
+        bool check_not_passable( sf::Vector2i passing_object_pos, sf::Vector2i object_pos );
         int calculate_score();
         void insert_objects(std::ifstream* ifs);
         void set_board_size(std::vector<std::vector<Sprite*>>& object_vector, const unsigned int width, const unsigned int height);
         void moving_character(int x_add, int y_add, sf::Vector2i character_pos);
+        void dig (sf::Vector2i position);
 
         static Sprite* create_dirt(int);
         static Sprite* create_tunnel(int);

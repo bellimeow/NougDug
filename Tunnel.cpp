@@ -21,7 +21,7 @@ void Tunnel::draw( sf::RenderWindow *window, int row, int column, sf::Sprite tun
 //
 
     tunnel_sprite.setTexture(four_way);
-    tunnel_sprite.setTextureRect(Sprite::extract_texture_position(tunnel_depth_map[1*depth]));
+    tunnel_sprite.setTextureRect(Sprite::extract_texture_position(tunnel_depth_map[1/**depth*/]));
 
     Sprite::draw( window, row, column, tunnel_sprite);;
 }
@@ -39,18 +39,91 @@ sf::Texture Tunnel::get_sprite_sheet()
     return tunnel_sheet;
 }
 
-bool Tunnel::check_passable(std::string character)
+bool Tunnel::check_not_passable(std::string character)
 {
-    return !(character == "null");
+    return (character == "null");
 }
 
-void Tunnel::set_position( int y, int x )
+void Tunnel::get_tunnels(  std::array<std::array<Sprite*, 3>, 3> tunnels )
 {
-    current_position.y = y;
-    current_position.x = x;
+    std::array<sf::Vector2i, 4> array_positions{ (0,1), (1,0), (1,2), (2,1) };
+
+    int count{0};
+
+    for (int i = 0; i < array_positions.size(); ++i)
+    {
+        if(tunnels[array_positions[i].y][array_positions[i].x]->get_i_am_a() == i_am_a)
+        {
+            ++count;
+        }
+    }
+
+    if (count == 2)
+    {
+        check_two_way_type(tunnels);
+    }
+    else
+    {
+        get_tunnel_type(tunnels, count);
+    }
+
+    get_tunnel_type(count);
 }
 
-const std::string &Tunnel::get_i_am_a() const
+void Tunnel::get_rotation(std::array<std::array<Sprite*, 3>, 3> tunnels)
 {
-    return i_am_a;
+ // container med rotationsgrader
 }
+
+void Tunnel::get_tunnel_type( std::array<std::array<Sprite*, 3>, 3> tunnels, int count )
+{
+    if (count == 0 || count == 4)
+    {
+        current_texture = 17;
+    }
+    else if (count == 1)
+    {
+        current_texture = 4;
+    }
+    else if(count == 3)
+    {
+        current_texture = 1;
+    }
+
+}
+
+void Tunnel::check_two_way_type( std::array<std::array<Sprite*, 3>, 3> tunnels )
+{
+    if (tunnels[1][0]->get_i_am_a() == i_am_a && tunnels[1][2]->get_i_am_a() == i_am_a)
+    {
+        current_texture = 3;
+        rotation_value = 0;
+    }
+    else if (tunnels[0][1]->get_i_am_a() == i_am_a && tunnels[2][1]->get_i_am_a() == i_am_a )
+    {
+        current_texture = 3;
+        rotation_value = 90;
+    }
+    else if (tunnels[1][0]->get_i_am_a() == i_am_a && tunnels[2][1]->get_i_am_a() == i_am_a)
+    {
+        current_texture = 2;
+        rotation_value = 0;
+    }
+    else if (tunnels[0][1]->get_i_am_a() == i_am_a && tunnels[1][0]->get_i_am_a() == i_am_a)
+    {
+        current_texture = 2;
+        rotation_value = 90;
+    }
+    else if (tunnels[1][2]->get_i_am_a() == i_am_a && tunnels[0][1]->get_i_am_a() == i_am_a)
+    {
+        current_texture = 2;
+        rotation_value = 180;
+    }
+    else if (tunnels[2][1]->get_i_am_a() == i_am_a && tunnels[1][2]->get_i_am_a() == i_am_a)
+    {
+        current_texture = 2;
+        rotation_value = 270;
+    }
+
+}
+

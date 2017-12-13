@@ -184,4 +184,14 @@ sf::IntRect Sprite::extract_texture_position(SpriteType sprite_type)
     }
 }
 
+void Sprite::set_position( int y, int x )
+{
+    current_position.y = y;
+    current_position.x = x;
+}
+
+const std::string &Sprite::get_i_am_a() const
+{
+    return i_am_a;
+}
 

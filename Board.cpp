@@ -11,6 +11,7 @@
 #include "Rock.h"
 #include "Tunnel.h"
 #include "Demodog.h"
+#include "Background.h"
 
 typedef Sprite* (*BlockFunction)(int);
 typedef std::unordered_map<char, BlockFunction> BlockFunctionMap;
@@ -31,16 +32,30 @@ Board::Board(std::ifstream* game_board, const int width, const int height, PlayS
     insert_objects(game_board);
 }
 
-void Board::check_collision()
+bool Board::check_collision(sf::Vector2i from, sf::Vector2i to)
 {
-    //check_passable
-    //check_dig
+    if ( check_not_passable( from, to ) )
+    {
+        if ( cant_dig(to) )
+        {
+            return true;
+        }
+        dig(to);
+    }
+    return false;
     //collision_with_enemy
 }
 
 bool Board::check_collision_simple() {
     return false;
 }
+
+/*bool AABB::intersect(AABB const &a) const
+{
+    // bra!
+    return ((a.left <= right) && (a.right >= left)) &&
+           ( (a.top <= bottom) && (a.bottom >= top));
+}*/
 
 bool Board::rock_proximity() {
     return false;
@@ -54,14 +69,19 @@ bool Board::rock_crush() {
     return false;
 }
 
-bool Board::dig() {
-    return false;
-}
+bool Board::cant_dig(sf::Vector2i to) {
 
-void
+    return !(blocks[to.y][to.x]->get_i_am_a() == "dirt");
+}
 
 void Board::check_tunnel(sf::Vector2i position)
 {
+    if ( blocks[position.y][position.x]->get_i_am_a() == "tunnel" ) {
+        std::array<std::array<Sprite*, 3>, 3> adjacent_tunnels {get_adjacent_objects( position )};
+
+        dynamic_cast<Tunnel*>(blocks[position.y][position.x])->get_tunnels( adjacent_tunnels ); //denna skickar information vidare om vilket håll vi kommer ifrån. Om det är x = 0, y = 0 så vill vi bara ta reda på vilken tunnel som är på positionen.
+    }
+    std::cout << "Not a tunnel, find me in 'check_tunnel'!" << std::endl;
    // blocks[position.y][position.x]->get_adjacent_tunnels();
 }
 
@@ -69,13 +89,11 @@ bool Board::collision_with_enemy() {
     return false;
 }
 
-bool Board::check_passable(sf::Vector2i passing_object_pos, sf::Vector2i object_pos)
+bool Board::check_not_passable( sf::Vector2i passing_object_pos, sf::Vector2i object_pos )
 {
-
     std::string passing_object_type {characters[passing_object_pos.y][passing_object_pos.x]->get_i_am_a()};
 
-
-    return blocks[object_pos.y][object_pos.x]->check_passable(passing_object_type);
+    return blocks[object_pos.y][object_pos.x]->check_not_passable( passing_object_type );
 }
 
 int Board::calculate_score() {
@@ -156,6 +174,7 @@ void Board::insert_objects( std::ifstream* ifs)
         }
     }
 }
+
 
 void Board::set_board_size(std::vector<std::vector<Sprite*>> &object_vector, const unsigned int width, const unsigned int height)
 {
@@ -261,16 +280,13 @@ Sprite* Board::create_rock(int depth)
 
 Sprite* Board::create_background(int depth)
 {
-    //return new Block(depth);
-    return nullptr;
+    return new Background(depth);
+
 }
 
 void Board::player_action( std::string action )
 {
-    if (action == "shoot" || action == "place")
-    {
-    }
-    else
+    if ( !(action == "shoot" || action == "place" ) )
     {
         sf::Vector2i player_pos {player->get_current_x(), player->get_current_y()};
 
@@ -289,19 +305,26 @@ void Board::player_action( std::string action )
 
         //player->animate();
     }
+    else
+    {
+
+    }
 }
 
 void Board::moving_character(int x_add, int y_add, sf::Vector2i character_pos)
 {
     Sprite* temp;
+    sf::Vector2i to {character_pos.x + x_add, character_pos.y + y_add};
 
-    //collision check
+    if ( !check_collision(character_pos, to ) )
+    {
+        temp = characters[character_pos.y + y_add][character_pos.x + x_add];
+        characters[character_pos.y + y_add][character_pos.x + x_add] = player;
+        characters[character_pos.y][character_pos.x] = temp;
 
-    temp = characters[character_pos.y + y_add][character_pos.x + x_add];
-    characters[character_pos.y + y_add][character_pos.x + x_add] = player;
-    characters[character_pos.y][character_pos.x] = temp;
+        player->set_position(character_pos.y + y_add, character_pos.x + x_add);
+    }
 
-    player->set_position(character_pos.y + y_add, character_pos.x + x_add);
 }
 
 
@@ -315,7 +338,42 @@ Sprite *Board::create_demodog()
     return new Demodog();
 }
 
-std::array<Sprite*, 5> Board::get_adjacent_objects( sf::Vector2i mid_pos)
+std::array<std::array<Sprite*, 3>, 3> Board::get_adjacent_objects( sf::Vector2i mid_pos)
 {
-    return std::array<Sprite*, 5>();
+    std::array<std::array<Sprite *, 3>, 3> tunnel_objects{};
+    int count{0};
+
+    for (int y = 0; y < tunnel_objects.size(); ++y)
+    {
+        for (int x = 0; x < tunnel_objects[y].size(); ++x)
+        {
+            std::map<int, sf::Vector2i> modifiers{ {0, {-1, -1}}, {1, {0, -1}}, {2, {1, -1}},
+                                                   {3, {-1, 0}},  {4, {0, 0}},  {5, {1, 0}},
+                                                   {6, {-1, 1}},  {7, {0, 1}},  {8, {1, 1}} };
+
+                int y_mod{modifiers[count].y};
+                int x_mod{modifiers[count].x};
+
+                if ( (y + y_mod <= update_playstate->board_height) && (y + y_mod >= 2) &&
+                     (x + x_mod <= update_playstate->board_width ) && (x + x_mod >= 0) )
+                {
+                    tunnel_objects[y][x] = blocks[mid_pos.y+y_mod][mid_pos.x+x_mod];
+                }
+                else
+                {
+                       tunnel_objects[y][x] = nullptr;
+                }
+
+                ++count;
+        }
+    }
+    return tunnel_objects;
+}
+
+void Board::dig( sf::Vector2i position )
+{
+    //dig animation here
+
+    delete (blocks[position.y][position.x]);
+    blocks[position.y][position.x] = create_tunnel(check_depth_level(position.y));
 }
