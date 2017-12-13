@@ -8,7 +8,7 @@ class Tunnel : public Block
 
     private:
         sf::Texture four_way;
-        SpriteType
+        //int här ska vi ha en uppdatering sprytetype extraction variabel
 
     public:
         Tunnel(int depth);
