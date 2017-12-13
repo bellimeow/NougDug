@@ -8,7 +8,6 @@ class Tunnel : public Block
 
     private:
         sf::Texture four_way;
-        SpriteType
 
     public:
         Tunnel(int depth);

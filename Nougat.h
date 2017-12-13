@@ -8,13 +8,10 @@
 
 #include "Sprite.h"
 
-class Nougat : Sprite
+class Nougat : public Sprite
 {
     private:
-    sf::Texture Sprite::get_sprite_sheet()
-    {
-        return *sprite_sheets["dirt"];
-    }
+    sf::Texture get_sprite_sheet() override;
 
 
 };

@@ -58,11 +58,9 @@ bool Board::dig() {
     return false;
 }
 
-void
-
 void Board::check_tunnel(sf::Vector2i position)
 {
-    blocks[position.y][position.x]->get_adjacent_tunnels();
+    //blocks[position.y][position.x]->get_adjacent_tunnels();
 }
 
 bool Board::collision_with_enemy() {
