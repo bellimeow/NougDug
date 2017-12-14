@@ -22,10 +22,10 @@ Sprite::Sprite(std::string object)
 {
 }
 
-void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite sprite)
+void Sprite::draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite &sprite)
 {
     sprite.setScale(sf::Vector2f{Game::DISPLAY_SIZE_MULTIPLIER, Game::DISPLAY_SIZE_MULTIPLIER});
-    sprite.setPosition(sf::Vector2f((16*column*Game::DISPLAY_SIZE_MULTIPLIER), (16*row*Game::DISPLAY_SIZE_MULTIPLIER)));
+    sprite.move(sf::Vector2f((16*column*Game::DISPLAY_SIZE_MULTIPLIER), (16*row*Game::DISPLAY_SIZE_MULTIPLIER)));
 
     window_ptr->draw(sprite);
 }

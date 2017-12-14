@@ -13,7 +13,7 @@ Rock::Rock( int depth )
     texture = get_sprite_sheet();
 }
 
-void Rock::draw( sf::RenderWindow *window, int row, int column, sf::Sprite rock_sprite)
+void Rock::draw( sf::RenderWindow *window, int row, int column, sf::Sprite &rock_sprite)
 {
     sf::Sprite dirt_sprite;
     Dirt dirt(depth);

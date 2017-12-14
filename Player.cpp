@@ -39,7 +39,7 @@ sf::Texture Player::get_sprite_sheet()
     return player_sheet;
 }
 
-void Player::draw( sf::RenderWindow *window, int row, int column, sf::Sprite player_sprite )
+void Player::draw( sf::RenderWindow *window, int row, int column, sf::Sprite &player_sprite )
 {
     std::map<int, SpriteType> player_map{
             {1, SpriteType::FRONT}, {2, SpriteType::FRONT_R_FOOT}, {3, SpriteType::FRONT_L_FOOT}, {4, SpriteType::WIN},

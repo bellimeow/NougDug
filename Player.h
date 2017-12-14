@@ -19,7 +19,7 @@ class Player : public Character
         Player();
         void feed_nougat();
         void animate();
-        void draw(sf::RenderWindow* window, int row, int column, sf::Sprite player_sprite);
+        void draw(sf::RenderWindow* window, int row, int column, sf::Sprite &player_sprite);
         void move(std::string direction);
 
         const int get_lives() const;

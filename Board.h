@@ -55,6 +55,7 @@ class Board
         static Sprite* create_player();
         static Sprite* create_demodog();
         //static Sprite* create_player();
+        void initialize_tunnels();
 
     public:
 

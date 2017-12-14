@@ -26,7 +26,7 @@ class Sprite
         Sprite();
         Sprite(std::string);
 
-        virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite sprite);
+        virtual void draw(sf::RenderWindow* window_ptr, int row, int column, sf::Sprite &sprite);
 
         virtual sf::Texture get_sprite_sheet();
         static void load_sprite_sheets();

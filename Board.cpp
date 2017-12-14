@@ -82,7 +82,6 @@ void Board::check_tunnel(sf::Vector2i position)
         dynamic_cast<Tunnel*>(blocks[position.y][position.x])->get_tunnels( adjacent_tunnels ); //denna skickar information vidare om vilket håll vi kommer ifrån. Om det är x = 0, y = 0 så vill vi bara ta reda på vilken tunnel som är på positionen.
     }
     std::cout << "Not a tunnel, find me in 'check_tunnel'!" << std::endl;
-   // blocks[position.y][position.x]->get_adjacent_tunnels();
 }
 
 bool Board::collision_with_enemy() {
@@ -173,6 +172,7 @@ void Board::insert_objects( std::ifstream* ifs)
             }
         }
     }
+    initialize_tunnels();
 }
 
 
@@ -184,6 +184,17 @@ void Board::set_board_size(std::vector<std::vector<Sprite*>> &object_vector, con
     for (auto row = object_vector.begin(); row != object_vector.end(); ++row) {
         (*row).resize(width);
         std::fill((*row).begin(), (*row).end(), null);
+    }
+}
+
+void Board::initialize_tunnels()
+{
+    for (int row = 0; row < blocks.size(); ++row)
+    {
+        for (int column = 0; column < blocks[row].size() ; ++column)
+        {
+            check_tunnel({column, row});
+        }
     }
 }
 
@@ -239,13 +250,14 @@ void Board::draw()
     {
         for (int column = 0; column < blocks[row].size() ; ++column)
         {
-            sf::Sprite sprite;
+            sf::Sprite block_sprite;
+            sf::Sprite character_sprite;
             if (blocks[row][column] != nullptr ) {
-                blocks[row][column]->draw( window_ptr, row, column, sprite );
+                blocks[row][column]->draw( window_ptr, row, column, block_sprite );
             }
             if (characters[row][column] != nullptr)
             {
-                characters[row][column]->draw( window_ptr, row, column, sprite);
+                characters[row][column]->draw( window_ptr, row, column, character_sprite);
             }
         }
     }
@@ -303,6 +315,8 @@ void Board::player_action( std::string action )
             moving_character(direction_values[action].x, direction_values[action].y, player_pos);
         }
 
+        check_tunnel(player_pos);
+        check_tunnel({player->get_current_x(), player->get_current_y()});
         //player->animate();
     }
     else
@@ -311,22 +325,21 @@ void Board::player_action( std::string action )
     }
 }
 
-void Board::moving_character(int x_add, int y_add, sf::Vector2i character_pos)
+void Board::moving_character(int x_mod, int y_mod, sf::Vector2i character_pos)
 {
     Sprite* temp;
-    sf::Vector2i to {character_pos.x + x_add, character_pos.y + y_add};
+    sf::Vector2i to {character_pos.x + x_mod, character_pos.y + y_mod};
 
     if ( !check_collision(character_pos, to ) )
     {
-        temp = characters[character_pos.y + y_add][character_pos.x + x_add];
-        characters[character_pos.y + y_add][character_pos.x + x_add] = player;
+        temp = characters[character_pos.y + y_mod][character_pos.x + x_mod];
+        characters[character_pos.y + y_mod][character_pos.x + x_mod] = player;
         characters[character_pos.y][character_pos.x] = temp;
 
-        player->set_position(character_pos.y + y_add, character_pos.x + x_add);
+        player->set_position(character_pos.y + y_mod, character_pos.x + x_mod);
     }
 
 }
-
 
 Sprite *Board::create_player()
 {
@@ -354,8 +367,8 @@ std::array<std::array<Sprite*, 3>, 3> Board::get_adjacent_objects( sf::Vector2i 
                 int y_mod{modifiers[count].y};
                 int x_mod{modifiers[count].x};
 
-                if ( (y + y_mod <= update_playstate->board_height) && (y + y_mod >= 2) &&
-                     (x + x_mod <= update_playstate->board_width ) && (x + x_mod >= 0) )
+                if ( (mid_pos.y + y_mod < update_playstate->board_height) && (mid_pos.y + y_mod >= 2) &&
+                     (mid_pos.x + x_mod < update_playstate->board_width ) && (mid_pos.x + x_mod >= 0) )
                 {
                     tunnel_objects[y][x] = blocks[mid_pos.y+y_mod][mid_pos.x+x_mod];
                 }

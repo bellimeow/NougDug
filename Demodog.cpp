@@ -10,7 +10,7 @@ Demodog::Demodog()
     texture = get_sprite_sheet();
 }
 
-void Demodog::draw( sf::RenderWindow *window, int row, int column, sf::Sprite enemy_sprite )
+void Demodog::draw( sf::RenderWindow *window, int row, int column, sf::Sprite &enemy_sprite )
 {
     std::map<int, SpriteType> demodog_map{
             {1, SpriteType::FRONT}, {2, SpriteType::FRONT_R_FOOT}, {3, SpriteType::FRONT_L_FOOT}, {4, SpriteType::WIN},

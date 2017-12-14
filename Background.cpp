@@ -16,7 +16,7 @@ void Background::animate()
     Sprite::animate();
 }
 
-void Background::draw( sf::RenderWindow * window, int row, int column, sf::Sprite dirt_sprite)
+void Background::draw( sf::RenderWindow * window, int row, int column, sf::Sprite & dirt_sprite)
 {
     std::map<int, SpriteType> dirt_depth_map{ {1, SpriteType::DIRT_DEPTH_1},
                                               {2, SpriteType::DIRT_DEPTH_2},
