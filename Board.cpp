@@ -79,9 +79,8 @@ void Board::check_tunnel(sf::Vector2i position)
     if ( blocks[position.y][position.x]->get_i_am_a() == "tunnel" ) {
         std::array<std::array<Sprite*, 3>, 3> adjacent_tunnels {get_adjacent_objects( position )};
 
-        dynamic_cast<Tunnel*>(blocks[position.y][position.x])->get_tunnels( adjacent_tunnels ); //denna skickar information vidare om vilket håll vi kommer ifrån. Om det är x = 0, y = 0 så vill vi bara ta reda på vilken tunnel som är på positionen.
+        dynamic_cast<Tunnel*>(blocks[position.y][position.x])->get_tunnels( adjacent_tunnels );
     }
-    std::cout << "Not a tunnel, find me in 'check_tunnel'!" << std::endl;
 }
 
 bool Board::collision_with_enemy() {
@@ -160,9 +159,16 @@ void Board::insert_objects( std::ifstream* ifs)
 
                     if (obj_char == '@')
                     {
-                        player = reinterpret_cast<Player*>(characters[row][column]);
+                        player = dynamic_cast<Player*>(characters[row][column]);
                         player->set_position(row, column);
                     }
+                    else
+                    {
+                        enemies.push_back(dynamic_cast<Enemies*>(characters[row][column]));
+                        auto enemy = enemies.rbegin();
+                        (*enemy)->set_position(row, column);
+                    }
+
                     break;
                 }
                 else if ( obj_char != '|' && obj_char != '\n' )
@@ -246,6 +252,8 @@ int Board::check_depth_level(int const row)
 
 void Board::draw()
 {
+    sf::Time elapsed1 = time.getElapsedTime();
+    std::cout << elapsed1.asSeconds() << std::endl;
     for (int row = 0; row < blocks.size(); ++row)
     {
         for (int column = 0; column < blocks[row].size() ; ++column)
@@ -298,6 +306,7 @@ Sprite* Board::create_background(int depth)
 
 void Board::player_action( std::string action )
 {
+
     if ( !(action == "shoot" || action == "place" ) )
     {
         sf::Vector2i player_pos {player->get_current_x(), player->get_current_y()};
@@ -324,6 +333,8 @@ void Board::player_action( std::string action )
 
     }
 }
+
+
 
 void Board::moving_character(int x_mod, int y_mod, sf::Vector2i character_pos)
 {

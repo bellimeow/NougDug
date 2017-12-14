@@ -36,11 +36,10 @@ void Demodog::animate()
     Sprite::animate();
 }
 
-void Demodog::move( std::string direction )
+void Demodog::dinner_time()
 {
 
 }
-
 
 bool Demodog::check_not_passable( std::string object )
 {

@@ -9,3 +9,11 @@ Enemies::Enemies(int lives, std::string object)
 {
 
 }
+
+void Enemies::patrol(std::array<std::array<Sprite*, 3>, 3> possible_pos, sf::Clock &time)
+{
+    while(/*It'sAlive! or Time*/)
+    {
+        /* Murder and mayhem */
+    };
+}

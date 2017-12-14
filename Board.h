@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Character.h"
+#include "Enemies.h"
 
 class PlayState;
 
@@ -25,12 +26,15 @@ class Board
         std::vector<std::vector<Sprite*>> characters;
         sf::RenderWindow* window_ptr;
         Player* player;
+        std::vector<Enemies*> enemies;
         PlayState* update_playstate{};
         sf::Clock time{};
         std::map<int, int> depth_levels{   {1, 0},
                                            {2, 0},
                                            {3, 0},
                                            {4, 0}   };
+        int last_time;
+
         std::array<std::array<Sprite*, 3>, 3> get_adjacent_objects(sf::Vector2i mid_pos);
         bool check_collision(sf::Vector2i from, sf::Vector2i to);
         bool check_collision_simple();
@@ -58,6 +62,8 @@ class Board
         void initialize_tunnels();
 
     public:
+
+
 
         Board(std::ifstream* game_board, int width, int height, PlayState* ps, sf::RenderWindow* window);
 

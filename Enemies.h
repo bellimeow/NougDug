@@ -10,9 +10,9 @@ class Enemies : public Character
         bool can_hunt;
         bool is_eating;
 
-        void patrol_path();
-        void ghost_hunt();
-        void start_hunt();
+        virtual void patrol(std::array<std::array<Sprite*, 3>, 3> possible_pos, sf::Clock &time);
+        virtual void ghost_hunt();
+        virtual void start_hunt();
 
     public:
         Enemies(int lives, std::string object);

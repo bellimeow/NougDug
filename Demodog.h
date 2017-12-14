@@ -12,13 +12,16 @@ class Demodog : public Enemies
         Demodog();
         void animate() override;
         void draw(sf::RenderWindow* window, int row, int column, sf::Sprite &enemy_sprite) override;
-        void move(std::string direction);
+        //void move(std::string direction);
+
 
         sf::Texture get_sprite_sheet() override ;
 
 
 
         bool check_not_passable( std::string ) override;
+
+        void dinner_time();
 };
 
 
