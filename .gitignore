@@ -1,0 +1,8 @@
+**/*.o
+**/a.out
+**/*.h.gch
+**/cmake-build-debug/
+**/cmake-build-debug/**
+**/.idea
+**/.idea/**
+documents/
