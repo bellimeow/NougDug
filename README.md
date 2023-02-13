@@ -13,5 +13,5 @@ You start in the middle of the playing field underground. Dig tunnels by walking
 for Demogorgons and Demodogs that will chase you if they spot you. If they get you, or if you get hit by a Demogorgon's slime, you lose a life. The creatures can walk through earth and rocks. Distract
 the creatures by throwing out nougat cookies and walking past them.
 
-<img src="intro-noug-dugs.png">
-<img src="nougdug.png">
+<img src="textures/intro-noug-dugs.png">
+<img src="textures/nougdug.png">
