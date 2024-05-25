@@ -1,4 +1,4 @@
-# NougDug - A game done as a school project with focus on object oriented programming.
+# NougDug - A game made as a school project with focus on object oriented programming.
 
 As a player you must save humanity from the monsters that have invaded the planet. They are underground and with your favorite nougat cookie you eliminate them to collect the highest points possible.
 
